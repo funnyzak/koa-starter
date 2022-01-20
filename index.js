@@ -1,9 +1,11 @@
+const path = require('path');
 const Koa = require('koa');
 const favicon = require('koa-favicon');
 const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
 const responseTime = require('koa-response-time');
 const json = require('koa-json');
+const views = require('koa-views');
 
 const config = require('./config');
 const router = require('./router');
@@ -22,6 +24,9 @@ app.use(responseTime());
 
 // json pretter
 app.use(json());
+
+app.use(views(path.join(__dirname, '/views/ejs'), { extension: 'ejs' }));
+
 
 // use router
 router(app);
