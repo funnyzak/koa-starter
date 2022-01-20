@@ -6,3 +6,7 @@
 特点
 1. 基于KOA框架
 
+
+## License
+
+MIT License © 2021 [funnyzak](https://github.com/funnyzak)

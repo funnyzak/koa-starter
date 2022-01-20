@@ -4,7 +4,10 @@
   "description": "aliyun oss file transfer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -23,6 +26,17 @@
   },
   "homepage": "https://github.com/funnyzak/aliyun-oss-transfer#readme",
   "dependencies": {
-    "koa": "^2.13.4"
+    "ali-oss": "^6.16.0",
+    "koa": "^2.13.4",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.2.1",
+    "prettier": "^2.5.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
