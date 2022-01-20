@@ -17,7 +17,8 @@
 ## 运行
 
 1. 创建 mongoDB 数据库，准备 OSS 连接密钥。
-2. 安装项目依赖，启动项目。
+2. 根目录下复制配置文件为 **config.js**，并配置。
+3. 安装项目依赖，启动项目。
 
 ```bash
 npm install --production

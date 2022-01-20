@@ -68,6 +68,4 @@ typings/
 
 package-lock.json
 
-
-config/db.json
-config/index.js
+/config.js
