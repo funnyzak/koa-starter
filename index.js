@@ -1,5 +1,4 @@
 const Koa = require('koa');
-const Router = require('@koa/router');
 const favicon = require('koa-favicon');
 const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
@@ -7,8 +6,8 @@ const responseTime = require('koa-response-time');
 const json = require('koa-json');
 
 const config = require('./config');
+const router = require('./router');
 const app = new Koa();
-var router = new Router();
 
 // load plugin
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -24,16 +23,8 @@ app.use(responseTime());
 // json pretter
 app.use(json());
 
-// set router
-router.get('/', (ctx, next) => {
-  // ctx.router available
-});
-
-
 // use router
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+router(app);
 
 // app.use(ctx => {
   // the parsed body will store in ctx.request.body
