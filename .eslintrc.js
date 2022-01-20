@@ -4,11 +4,9 @@ module.exports = {
     node: true
   },
   parserOptions: {
+    sourceType: 'module',
     ecmaVersion: 2020
   },
-  overrides: [
-
-  ],
   rules: {
     'semi': ['error', 'always'],
     'comma-dangle': ['error', 'never'],
