@@ -67,3 +67,7 @@ typings/
 .output/
 
 package-lock.json
+
+
+config/db.json
+config/index.js
