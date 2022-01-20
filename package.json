@@ -1,0 +1,28 @@
+{
+  "name": "aliyun-oss-transfer",
+  "version": "1.0.0",
+  "description": "aliyun oss file transfer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/funnyzak/aliyun-oss-transfer.git"
+  },
+  "keywords": [
+    "aliyun",
+    "oss",
+    "upload",
+    "tranfer"
+  ],
+  "author": "Leon <silenceace@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funnyzak/aliyun-oss-transfer/issues"
+  },
+  "homepage": "https://github.com/funnyzak/aliyun-oss-transfer#readme",
+  "dependencies": {
+    "koa": "^2.13.4"
+  }
+}
