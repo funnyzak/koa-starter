@@ -1,7 +1,6 @@
 public/upload
 *.emailme
 public/upload_img
-.vscode
 # Logs
 *.log
 *.out
