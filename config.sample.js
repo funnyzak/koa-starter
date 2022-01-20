@@ -1,18 +1,11 @@
 module.exports = {
   app: {
     name: 'aliyun oss tranfer',
-    host: 'http://127.0.0.1:5000',
+    host: 'http://127.0.0.1:5000', // app主页地址
+    port: '2058', // 服务启动监听端口
     fileObject: {
+      objectPrefix: '/transfer',
       expiration: 600 // oss 文件对象有效期，单位（秒）
-    },
-    /**
-     * 路由地址配置
-     */
-    route: {
-      path: {
-        // 文件上传路由路径
-        upload: '/oss/put'
-      }
     }
   },
   /**
