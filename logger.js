@@ -3,7 +3,7 @@
 import path from 'path';
 import moment from 'moment';
 import winston from 'winston';
-import DailyRotateFile from 'winston-daily-rotate-file';
+const DailyRotateFile = require('winston-daily-rotate-file');
 
 const infoLoggerTransport = new DailyRotateFile({
   name: 'info_log',

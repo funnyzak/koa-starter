@@ -60,7 +60,8 @@
       [
         "@babel/preset-env",
         {
-          "useBuiltIns": "entry"
+          "useBuiltIns": "entry",
+          "corejs": 3
         }
       ]
     ]
@@ -73,6 +74,10 @@
     "*.{js}": [
       "prettier --write",
       "eslint --cache --fix",
+      "git add"
+    ],
+    "*.{md,html,json,css,less,scss,sass}": [
+      "prettier --write",
       "git add"
     ]
   }
