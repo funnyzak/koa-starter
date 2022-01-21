@@ -1,11 +1,10 @@
 'use strict';
 
-const OSS = require('ali-oss');
-const path = require('path');
-const fs = require('fs');
-const udidv4 = require('uuid').v4;
+import OSS from 'ali-oss';
+import fs from 'fs';
+import { v4 as udidv4 } from 'uuid';
 
-class AliYunOss {
+export default class AliYunOss {
   constructor(option) {
     const { region, accessKeyId, accessKeySecret, bucket } = option;
 
@@ -75,5 +74,3 @@ class AliYunOss {
     return this.client.delete(objectKey);
   }
 }
-
-module.exports = AliYunOss;

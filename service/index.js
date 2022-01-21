@@ -1,12 +1,14 @@
 'use strict';
 
 import config from '../config';
-import AliOss from './aliyun/oss';
+import AliOSS from './aliyun/oss';
 
 let aliyunOSSList = config.aliyun.oss.map((v) => {
-  return new AliOss(v);
+  return new AliOSS(v);
 });
 
-module.exports.aliyun = {
-  aliyunOSSList
+export const aliyun = {
+  ossList: aliyunOSSList
 };
+
+export default {};
