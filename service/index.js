@@ -13,6 +13,7 @@ let mongoDB = new MongoDbUtils(config.db.mongoDb);
 
 !(() => {
   if (mongoDB.ping()) {
+    logger.info(`MongoDB ${mongoDB.opts.db} is ok.`);
   }
 })();
 

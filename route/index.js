@@ -2,7 +2,7 @@
 
 // document: https://github.com/ZijianHe/koa-router
 const Router = require('@koa/router');
-import service from './service/index.js';
+import service from '../service';
 
 // aliyun oss router
 const ossRoute = new Router({

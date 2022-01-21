@@ -8,7 +8,9 @@ import json from 'koa-json';
 import views from 'koa-views';
 
 import config from './config';
-import router from './router';
+import router from './route';
+import logger from './logger';
+
 const app = new Koa();
 
 // load plugin
@@ -58,6 +60,10 @@ app.use(json());
 
 app.use(views(path.join(__dirname, '/views/ejs'), { extension: 'ejs' }));
 
+// app.use(async (ctx) => {
+//   ctx.append('Code-By', '<Leon>silenceace@gmail.com')
+// })
+
 // use router
 router(app);
 
@@ -83,4 +89,7 @@ app.use(async function pageNotFound(ctx) {
 });
 
 app.listen(config.app.port);
-console.log('app listening on port ' + config.app.port);
+
+logger.info(
+  `listening port ${config.app.port}. open http://127.0.0.1:${config.app.port}`
+);
