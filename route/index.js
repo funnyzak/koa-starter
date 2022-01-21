@@ -2,6 +2,7 @@
 
 // document: https://github.com/ZijianHe/koa-router
 const Router = require('@koa/router');
+import * as utl from '../lib/utils';
 import service from '../service';
 
 // aliyun oss router
@@ -9,7 +10,7 @@ const ossRoute = new Router({
   prefix: '/oss'
 });
 ossRoute
-  .put('/put/:bucket', (ctx, next) => {
+  .put('/put/:bucket', utl.bodyParse(), (ctx, next) => {
     // ...
   })
   .all('/', (ctx, next) => {
@@ -19,9 +20,10 @@ ossRoute
 // other
 const otherRoute = new Router();
 otherRoute
-  .put('/transfer', async (ctx, next) => {
+  .put('/transfer', utl.bodyParse(), async (ctx, next) => {
     console.log(ctx.request.files);
     console.log(ctx.request.body);
+
     ctx.body = JSON.stringify(ctx.request.files);
   })
   .all('/', async (ctx, next) => {
