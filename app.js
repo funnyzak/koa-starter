@@ -6,7 +6,7 @@ import responseTime from 'koa-response-time';
 import json from 'koa-json';
 import views from 'koa-views';
 import config from './config';
-import router from './route';
+import router from './router';
 import logger from './lib/logger';
 
 const app = new Koa();
