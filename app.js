@@ -61,14 +61,6 @@ app.use(views(path.join(__dirname, '/views/ejs'), { extension: 'ejs' }));
 // use router
 router(app);
 
-// app.use(ctx => {
-// the parsed body will store in ctx.request.body
-// if nothing was parsed, body will be an empty object {}
-// ctx.body = ctx.request.body;
-
-//   ctx.body = 'hello world';
-// });
-
 app.use(async function pageNotFound(ctx) {
   // we need to explicitly set 404 here
   // so that koa doesn't assign 200 on body=
