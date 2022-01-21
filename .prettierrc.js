@@ -5,11 +5,11 @@ module.exports = {
 
   tabWidth: 2,
   // 结尾分号
-  semi: true,
+  semi: false,
   // Use single quotes instead of double quotes.
   singleQuote: true,
   // Change when properties in objects are quoted.
   quoteProps: 'consistent',
   bracketSpacing: true,
   bracketSameLine: true
-};
+}

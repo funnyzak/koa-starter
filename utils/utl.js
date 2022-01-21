@@ -8,11 +8,10 @@ import dtime from 'time-formater';
 
 let format = util.format;
 
-
 /**
  * 计算文本Hash
- * @param {*} textToHash 
- * @param {*} algorithm 
+ * @param {*} textToHash
+ * @param {*} algorithm
  */
 function textHash(textToHash, algorithm = 'md5') {
   let shasum = crypto.createHash(algorithm);
@@ -23,7 +22,7 @@ function textHash(textToHash, algorithm = 'md5') {
 /**
  * 计算文件Hash
  * @param {*} filename 文件路径
- * @param {*} algorithm 
+ * @param {*} algorithm
  */
 function fileHash(filename, algorithm = 'md5') {
   return new Promise((resolve, reject) => {
@@ -46,31 +45,38 @@ function fileHash(filename, algorithm = 'md5') {
   });
 }
 
-
 function uuid() {
   return uuidv4().replace(/-/g, '');
 }
 
-function getNormalTimeStringByTimestamp(timeStamp = _getTimestamp(), formatString = 'YYYY-MM-DD HH:mm:ss') {
+function getNormalTimeStringByTimestamp(
+  timeStamp = _getTimestamp(),
+  formatString = 'YYYY-MM-DD HH:mm:ss'
+) {
   return dtime(timeStamp).format(formatString);
 }
 
-function getNormalTimeStringByDate(date = new Date(), formatString = 'YYYY-MM-DD HH:mm:ss') {
+function getNormalTimeStringByDate(
+  date = new Date(),
+  formatString = 'YYYY-MM-DD HH:mm:ss'
+) {
   return dtime(date.getTime()).format(formatString);
 }
 
-function getNormalTimeStringByDateString(dateString, formatString = 'YYYY-MM-DD HH:mm:ss') {
+function getNormalTimeStringByDateString(
+  dateString,
+  formatString = 'YYYY-MM-DD HH:mm:ss'
+) {
   return dtime(dateToTimestamp(dateString.toString())).format(formatString);
 }
 
-
 // 获取时间戳 （秒）
 function _getTimestamp(d) {
-  return (d || (new Date())).getTime();
+  return (d || new Date()).getTime();
 }
 
 function getSecondTimestamp(d) {
-  return Number.parseInt((d || (new Date())).getTime().toString() / 1000);
+  return Number.parseInt((d || new Date()).getTime().toString() / 1000);
 }
 
 // 获取多位数字字符串
@@ -102,9 +108,8 @@ var mkdir = function (dirpath, dirname) {
   if (typeof dirname === 'undefined') {
     if (fs.existsSync(dirpath)) {
       return;
-    } 
-      mkdir(dirpath, path.dirname(dirpath));
-    
+    }
+    mkdir(dirpath, path.dirname(dirpath));
   } else {
     if (dirname !== path.dirname(dirpath)) {
       mkdir(dirpath);
@@ -120,41 +125,42 @@ var mkdir = function (dirpath, dirname) {
 };
 
 function subStrWithTail(str, subLength, startIndex = 0, tail = '..') {
-  return str == null || str.length == 0 ? '' : str.substr(startIndex, subLength) + ((str.length - startIndex <= subLength) ? '' : tail);
+  return str == null || str.length == 0
+    ? ''
+    : str.substr(startIndex, subLength) +
+        (str.length - startIndex <= subLength ? '' : tail);
 }
-
 
 function getWeekDay(date = new Date()) {
   const day = date.getDay();
   //console.log(day)
   switch (day) {
     case 1:
-      return "一";
+      return '一';
     case 2:
-      return "二";
+      return '二';
     case 3:
-      return "三";
+      return '三';
     case 4:
-      return "四";
+      return '四';
     case 5:
-      return "五";
+      return '五';
     case 6:
-      return "六";
+      return '六';
     case 0:
-      return "日";
+      return '日';
     default:
-      return "-";
+      return '-';
   }
 }
 
 function dateToTimestamp(date) {
-  return (new Date(Date.parse(date.replace(/-/g, "/")))).getTime();
+  return new Date(Date.parse(date.replace(/-/g, '/'))).getTime();
 }
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
 
 function jsonToFromDataString(json) {
   let keys = Object.keys(json),
@@ -166,7 +172,9 @@ function jsonToFromDataString(json) {
     const encodeParam = encodeURIComponent(json[key]);
     urlParams += `${key}=${encodeParam}&`;
   }
-  return urlParams.length > 0 ? urlParams.substr(0, urlParams.length - 1) : urlParams;
+  return urlParams.length > 0
+    ? urlParams.substr(0, urlParams.length - 1)
+    : urlParams;
 }
 
 function jsonToPrintString(json, split = '\n') {
@@ -190,15 +198,20 @@ function fromDataStringToJson(formData) {
   }
   keys.sort();
   for (let key of keys.values()) {
-    json[key] = decodeURIComponent(formData.split('&').filter(kv => {
-      return kv.split('=')[0] == key;
-    })[0].split('=')[1]);
+    json[key] = decodeURIComponent(
+      formData
+        .split('&')
+        .filter((kv) => {
+          return kv.split('=')[0] == key;
+        })[0]
+        .split('=')[1]
+    );
   }
   return json;
 }
 
 function trim(str) {
-  return str.replace(/(^\s*)|(\s*$)/g, "");
+  return str.replace(/(^\s*)|(\s*$)/g, '');
 }
 
 function bytesToSize(bytes) {
@@ -207,20 +220,27 @@ function bytesToSize(bytes) {
   var sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
   var i = Math.floor(Math.log(bytes) / Math.log(k));
   // return (bytes / Math.pow(k, i)) + ' ' + sizes[i];
-  //toPrecision(3) 后面保留一位小数，如1.0GB                                                                                                             
+  //toPrecision(3) 后面保留一位小数，如1.0GB
   return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 }
 
 /**
  * 毫秒转时间表示
- * @param {*} ms 
+ * @param {*} ms
  */
 function msTimeToShow(ms) {
-  return humanTime(new Date(new Date().getTime() - parseInt(ms))).replace('前', '');
+  return humanTime(new Date(new Date().getTime() - parseInt(ms))).replace(
+    '前',
+    ''
+  );
 }
 
 function humanTime(date) {
-  let [now, time, tail] = [getSecondTimestamp(), Number.parseInt(date.getTime() / 1000), ''];
+  let [now, time, tail] = [
+    getSecondTimestamp(),
+    Number.parseInt(date.getTime() / 1000),
+    ''
+  ];
   const _rlt = now - time;
 
   tail = _rlt > 0 ? '前' : '后';
@@ -256,27 +276,33 @@ function shuffle(arr) {
 
 /**
  * 转换为dollar格式显示
- * @param {*} nums 
+ * @param {*} nums
  * @param {*} c  是否保留小数点 几位
  * @param {*} d 小数点分隔符
  * @param {*} t  分隔符
  */
 function dollar(nums, c = 2, d = '.', t = ',') {
   let n = nums;
-  c = isNaN(c = Math.abs(c)) ? 2 : c;
-  d = d == undefined ? "." : d;
-  t = t == undefined ? "," : t;
-  let s = n < 0 ? "-" : "";
-  let i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c)));
+  c = isNaN((c = Math.abs(c))) ? 2 : c;
+  d = d == undefined ? '.' : d;
+  t = t == undefined ? ',' : t;
+  let s = n < 0 ? '-' : '';
+  let i = String(parseInt((n = Math.abs(Number(n) || 0).toFixed(c))));
   let j = (j = i.length) > 3 ? j % 3 : 0;
-  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+  return (
+    s +
+    (j ? i.substr(0, j) + t : '') +
+    i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) +
+    (c
+      ? d +
+        Math.abs(n - i)
+          .toFixed(c)
+          .slice(2)
+      : '')
+  );
 }
 
-function wirteFile({
-  fileName = '',
-  encoding = 'utf-8',
-  data = ''
-}) {
+function wirteFile({ fileName = '', encoding = 'utf-8', data = '' }) {
   try {
     fs.writeFileSync(fileName, data, {
       encoding: encoding
@@ -288,10 +314,7 @@ function wirteFile({
   }
 }
 
-function readFile({
-  fileName = '',
-  encoding = 'utf-8'
-}) {
+function readFile({ fileName = '', encoding = 'utf-8' }) {
   try {
     return fs.readFileSync(fileName, encoding);
   } catch (error) {
