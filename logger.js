@@ -1,107 +1,78 @@
 'use strict';
 
 import path from 'path';
-import moment from 'moment';
-import winston from 'winston';
-const DailyRotateFile = require('winston-daily-rotate-file');
+import * as winston from 'winston';
+import 'winston-daily-rotate-file';
 
-const infoLoggerTransport = new DailyRotateFile({
-  name: 'info_log',
-  filename: path.join(__dirname, 'logs/info_'),
-  datePattern: 'yyyy_MM_dd.log',
-  localTime: false,
-  timestamp: () => {
-    return moment().format('YYYY-MM-DD HH:mm:ss:SSS');
+//
+// Logging levels
+//
+const config = {
+  levels: {
+    error: 0,
+    debug: 1,
+    warn: 2,
+    data: 3,
+    info: 4,
+    verbose: 5,
+    silly: 6,
+    custom: 7
   },
-  prepend: false,
-  maxsize: 7 * 1024 * 1024,
-  eol: '\n',
-  json: true,
-  level: 'info'
-});
+  colors: {
+    error: 'red',
+    debug: 'blue',
+    warn: 'yellow',
+    data: 'grey',
+    info: 'green',
+    verbose: 'cyan',
+    silly: 'magenta',
+    custom: 'yellow'
+  }
+};
 
-const errorLoggerTransport = new DailyRotateFile({
-  name: 'error_log',
-  filename: path.join(__dirname, 'logs/error_'),
-  datePattern: 'yyyy_MM_dd.log',
-  localTime: false,
-  timestamp: () => {
-    return moment().format('YYYY-MM-DD HH:mm:ss:SSS');
-  },
-  prepend: false,
-  maxsize: 7 * 1024 * 1024,
-  eol: '\n',
-  json: true,
-  level: 'error'
-});
-
-let logger = new winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'service' },
-  transports: [
-    new winston.transports.Console({
-      leve: 'info',
-      json: false
-    }),
-    errorLoggerTransport,
-    infoLoggerTransport
-  ]
-});
-
-/**new日志记录器  */
-logger.newInfoLogger = function (name) {
-  logger.log('info', '新日志记录器已创建，名称：', name);
-  return new winston.createLogger({
-    transports: [
-      new winston.transports.Console({
-        leve: 'info',
-        json: false
-      }),
-      new DailyRotateFile({
-        name: name + '_log',
-        filename: './logs/' + name + '_',
-        datePattern: 'yyyy_MM_dd.log',
-        localTime: false,
-        timestamp: () => {
-          return moment().format('YYYY-MM-DD HH:mm:ss:SSS');
-        },
-        prepend: false,
-        maxsize: 7 * 1024 * 1024,
-        eol: '\n',
-        json: true,
-        level: 'info'
-      })
-    ]
+const createDayTransport = (preName, level = 'info') => {
+  return new winston.transports.DailyRotateFile({
+    filename: `${preName}-%DATE%.log`,
+    datePattern: 'YYYY-MM-DD-HH',
+    zippedArchive: true,
+    dirname: path.join(__dirname, 'logs'),
+    maxSize: '20m',
+    utc: false,
+    maxFiles: '14d',
+    level
   });
 };
 
-// if(env === 'production'){
-//     logger.remove('info_log');
-// }
+export const createLogger = (name) => {
+  let _logger = new winston.createLogger({
+    level: 'info',
+    levels: config.levels,
+    format: winston.format.combine(
+      winston.format.json(),
+      winston.format.timestamp({
+        format: 'YYYY-MM-DD HH:mm:ss'
+      })
+    ),
+    defaultMeta: { name },
+    transports: [
+      createDayTransport('info', 'info'),
+      createDayTransport('warn', 'warn'),
+      createDayTransport('err', 'error')
+    ]
+  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    _logger.add(
+      new winston.transports.Console({
+        format: winston.format.json()
+      })
+    );
+  }
+
+  _logger.info(`${name} 日志服务已启动。`);
+  return _logger;
+};
+
+const logger = createLogger('main');
 
 export default logger;
-
-/* logger 使用
-The log method provides the same string interpolation methods like util.format.
-
-logger.log('info', 'test message %s, %s', 'first', 'second', {number: 123}, function(){});
-// info: test message first, second
-// meta = {number: 123}
-// callback = function(){}
-
-Each level is given a specific integer priority. The higher the priority the more important the message is considered to be, and the lower the corresponding integer priority. For example, npm logging levels are prioritized from 0 to 5 (highest to lowest):
-
-{ error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
-
-logger.log('silly', "127.0.0.1 - there's no place like home");
-logger.log('debug', "127.0.0.1 - there's no place like home");
-logger.log('verbose', "127.0.0.1 - there's no place like home");
-logger.log('info', "127.0.0.1 - there's no place like home");
-logger.log('warn', "127.0.0.1 - there's no place like home");
-logger.log('error', "127.0.0.1 - there's no place like home");
-logger.info("127.0.0.1 - there's no place like home");
-logger.warn("127.0.0.1 - there's no place like home");
-logger.error("127.0.0.1 - there's no place like home");
-
-*/
