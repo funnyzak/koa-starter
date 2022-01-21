@@ -71,7 +71,7 @@
     "npm": ">= 7.10.0"
   },
   "lint-staged": {
-    "*.{js}": [
+    "*.{js,mjs}": [
       "prettier --write",
       "eslint --cache --fix",
       "git add"
