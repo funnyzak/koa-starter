@@ -1,7 +1,6 @@
-public/upload
 *.emailme
-public/upload_img
 # Logs
+logs/
 *.log
 *.out
 npm-debug.log*
@@ -68,3 +67,8 @@ typings/
 package-lock.json
 
 /config.js
+
+
+tmp/
+
+!*gitkeep
