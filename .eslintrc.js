@@ -7,6 +7,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2020
   },
+  extends: ['prettier'],
   rules: {
     'semi': ['error', 'always'],
     'comma-dangle': ['error', 'never'],

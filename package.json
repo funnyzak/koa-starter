@@ -33,11 +33,11 @@
     "ali-oss": "^6.16.0",
     "cross-env": "^7.0.3",
     "ejs": "^3.1.6",
+    "joi": "^17.5.0",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-favicon": "^2.1.0",
     "koa-json": "^2.0.2",
-    "koa-response-time": "^2.1.0",
     "koa-router": "^10.1.1",
     "koa-session": "^6.2.0",
     "koa-static": "^5.0.0",
@@ -53,6 +53,7 @@
   "devDependencies": {
     "@babel/node": "^7.16.8",
     "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.2.1",
     "prettier": "^2.5.1"
