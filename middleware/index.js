@@ -4,12 +4,15 @@ import serve from 'koa-static';
 import json from 'koa-json';
 import views from 'koa-views';
 import koaBody from 'koa-body';
+import session from 'koa-session';
+
 import router from '../router';
 import logger from '../lib/logger';
 import config from '../config';
 
 import requestTime from './response-time';
 import responseFormat from './response-format';
+// import session from './session'
 
 import SysError from '../common/sys-error';
 import ErrorCode from '../common/error-code';
@@ -36,6 +39,7 @@ export default (app) => {
     .use(requestTime({ hrtime: true }))
     // response format
     .use(responseFormat())
+    .use(session(config.koaSession.config, app))
     // body parse
     .use(
       koaBody(

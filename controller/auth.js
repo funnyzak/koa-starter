@@ -18,6 +18,7 @@ export default {
     const user = {
       name
     };
+
     ctx.session.user = user;
 
     ctx.body = user;
@@ -41,10 +42,5 @@ export default {
     ctx.session = null;
 
     ctx.body = {};
-  },
-  test: async (ctx) => {
-    ctx.session = null;
-
-    ctx.body = { test: 'test code' };
   }
 };

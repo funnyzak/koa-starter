@@ -1,25 +1,24 @@
 'use strict';
 
 import AuthCtrl from '../controller/auth';
-import session from '../middleware/session';
 
 module.exports = [
   {
     method: 'post',
     path: '/auth/login',
     controller: AuthCtrl.login,
-    middleware: session
+    middleware: []
   },
   {
     method: 'post',
     path: '/auth/check_login',
     controller: AuthCtrl.checkLogin,
-    middleware: session
+    middleware: []
   },
   {
     method: 'delete',
     path: '/auth/logout',
     controller: AuthCtrl.logout,
-    middleware: session
+    middleware: []
   }
 ];
