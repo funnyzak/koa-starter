@@ -3,7 +3,7 @@
 import ErrorCode from './error-code';
 import StatusCode from './status-code';
 
-class SysError extends Error {
+export default class SysError extends Error {
   constructor(
     message,
     errorCode = ErrorCode.UNKNOWN_ERROR,
@@ -15,5 +15,3 @@ class SysError extends Error {
     this.status = status;
   }
 }
-
-module.exports = SysError;
