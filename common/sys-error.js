@@ -1,7 +1,7 @@
 'use strict';
 
-import ErrorCode from './error_code';
-import StatusCode from './status_code';
+import ErrorCode from './error-code';
+import StatusCode from './status-code';
 
 class SysError extends Error {
   constructor(

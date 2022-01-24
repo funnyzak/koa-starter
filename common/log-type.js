@@ -8,5 +8,6 @@ export default {
   REQUEST_TIME: 'Request Time',
   SERVER_WARN: 'Server Warn',
   SERVER_ERROR: 'Server Error',
-  RUN_WARN: 'RUN Warn'
+  RUN_WARN: 'RUN Warn',
+  RUN_INFO: 'RUN Info'
 };
