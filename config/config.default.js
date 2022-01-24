@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   app: {
     name: 'aliyun oss tranfer',
     host: 'http://127.0.0.1:5000', // app主页地址
@@ -6,21 +6,57 @@ module.exports = {
     fileObject: {
       objectPrefix: '/transfer',
       expiration: 600 // oss 文件对象有效期，单位（秒）
+    },
+    urlPrefix: '/api/v1'
+  },
+  // https://github.com/koajs/koa-body
+  koaBody: {
+    multipart: false,
+    urlencode: true,
+    text: true,
+    json: true,
+    encoding: 'utf-8',
+    jsonLimit: '2mb',
+    textLimit: '2mb',
+    formLimit: '2mb',
+    patchNode: false
+  },
+  koaSession: {
+    keys: ['arjMcv3Bnab!'],
+    config: {
+      /** (string) cookie key (default is koa.sess) */
+      key: 'wolf.sess',
+      /** (number || 'session') maxAge in ms (default is 1 days) */
+      /** 'session' will result in a cookie that expires when session/browser is closed */
+      /** Warning: If a session cookie is stolen, this cookie will never expire */
+      maxAge: 86400000,
+      /** (boolean) automatically commit headers (default true) */
+      autoCommit: true,
+      /** (boolean) can overwrite or not (default true) */
+      overwrite: true,
+      /** (boolean) httpOnly or not (default true) */
+      httpOnly: true,
+      /** (boolean) signed or not (default true) */
+      signed: true,
+      /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
+      rolling: false,
+      /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
+      renew: false,
+      /** (boolean) secure cookie*/
+      secure: false,
+      /** (string) session cookie sameSite options (default null, don't set it) */
+      sameSite: null
     }
   },
   /**
    * 数据库配置
    */
   db: {
-    /**
-     * mongoDB配置
-     */
-    mongoDB: {
-      host: '127.0.0.1',
-      port: 27017,
-      db: 'oss-tranfer',
-      user: 'root',
-      password: 'abcedfg'
+    mongoDb: {
+      db: 'transferdb',
+      uri:
+        'mongodb://adm:12345679@@127.0.0.1:27017/transferdb' +
+        '?authSource=admin&maxPoolSize=50&w=majority&connectTimeoutMS=10000'
     }
   },
   aliyun: {
@@ -39,3 +75,5 @@ module.exports = {
     ]
   }
 };
+
+export default config;

@@ -1,6 +1,9 @@
 'use strict';
 
 import _ from 'lodash';
+import { existsSync, mkdir } from 'fs';
+import path from 'path';
+
 import logger from '../lib/logger';
 import LogType from '../common/log_type';
 
@@ -19,6 +22,16 @@ if (env) {
       msg: e.message
     });
   }
+}
+
+if (!existsSync(config.app.upload.tmpDir)) {
+  mkdir(config.app.upload.tmpDir, { recursive: true }, (err) => {
+    if (err) {
+      logger.error(
+        `mkdir ${config.app.upload.tmpdir} fail. error: ${JSON.stringify(err)}`
+      );
+    }
+  });
 }
 
 export default config;
