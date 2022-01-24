@@ -2,19 +2,18 @@
 
 import _ from 'lodash';
 import { existsSync, mkdir } from 'fs';
-import path from 'path';
 
 import logger from '../lib/logger';
-import LogType from '../common/log_type';
+import LogType from '../common/log-type';
 
-import config from './config.default';
+import config from './config-default';
 
 // load 指定环境配置
 const env = process.env.NODE_ENV;
 
 if (env) {
   try {
-    let envConfig = require(`./config.${env}`);
+    let envConfig = require(`./config-${env}`);
     config = _.merge(config, envConfig);
   } catch (e) {
     logger.error({
