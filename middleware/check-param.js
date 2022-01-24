@@ -10,7 +10,7 @@ import ErrorMsg from '../common/error-msg';
 import StatusCode from '../common/status-code';
 import LogType from '../common/log-type';
 
-module.exports = (params) => {
+export default (params) => {
   return async function (ctx, next) {
     // 请求参数初始化
     const reqParam = {

@@ -21,6 +21,8 @@ const parseError = (ctx, err) => {
       payload: ctx.reqParams
     });
 
+    ctx.status = err.status;
+
     // 自定义错误
     return {
       success: false,
@@ -28,29 +30,29 @@ const parseError = (ctx, err) => {
       data: err.data || null,
       message: err.message
     };
-  } 
-    logger.error({
-      type: LogType.SERVER_ERROR,
-      msg: err.message,
-      base: {
-        method: ctx.method,
-        path: ctx.path,
-        status: ctx.status
-      },
-      payload: ctx.reqParams
-    });
+  }
+  logger.error({
+    type: LogType.SERVER_ERROR,
+    msg: err.message,
+    base: {
+      method: ctx.method,
+      path: ctx.path,
+      status: ctx.status
+    },
+    payload: ctx.reqParams
+  });
 
-    // 未知错误
-    return {
-      success: false,
-      code: ErrorCode.UNKNOWN_ERROR,
-      data: null,
-      message: ErrorMsg.UNKNOWN_ERROR
-    };
-  
+  ctx.status = StatusCode.BAD_REQUEST;
+  // 未知错误
+  return {
+    success: false,
+    code: ErrorCode.UNKNOWN_ERROR,
+    data: null,
+    message: ErrorMsg.UNKNOWN_ERROR
+  };
 };
 
-module.exports = () => {
+export default () => {
   return async (ctx, next) => {
     try {
       await next();
@@ -68,10 +70,10 @@ module.exports = () => {
         success: true,
         code: ErrorCode.OK,
         data: ctx.body,
-        message: responseBody
+        message: null
       };
 
-      ctx.body = response;
+      ctx.body = responseBody;
 
       logger.info({
         type: LogType.RUN_INFO,
