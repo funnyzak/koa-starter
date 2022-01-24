@@ -13,7 +13,11 @@ module.exports = [
   {
     method: 'get',
     path: '/throw_undefined_error',
-    controller: TestCtrl.throwUndefinedError
+    controller: TestCtrl.throwUndefinedError,
+    middleware: async (ctx, next) => {
+      ctx.set('hello', 'world');
+      await next();
+    }
   },
   {
     method: 'get',

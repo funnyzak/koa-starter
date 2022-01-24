@@ -1,6 +1,6 @@
 'use strict';
 
-import config from '../config';
+import config from '../config/config-development';
 import AliOSS from '../lib/aliyun/oss';
 import MongoDbUtils from '../lib/db/mongo';
 import logger from '../lib/logger';

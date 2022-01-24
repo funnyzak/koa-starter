@@ -69,7 +69,7 @@ export default () => {
       const responseBody = {
         success: true,
         code: ErrorCode.OK,
-        data: ctx.body,
+        data: JSON.parse(ctx.body),
         message: null
       };
 
