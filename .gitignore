@@ -66,9 +66,10 @@ typings/
 
 package-lock.json
 
-/config.js
-
-
 tmp/
 
 !*gitkeep
+
+
+config/config.*.js
+!config/config.default.js
