@@ -5,7 +5,6 @@ const ErrorCode = require('../common/error-code')
 const SysError = require('../common/sys-error')
 
 const { MySqlDB } = require('./')
-const UserModel = MySqlDB.user
 
 module.exports = {
   /**
@@ -14,7 +13,7 @@ module.exports = {
    * @returns user
    */
   async getUser(userName) {
-    const user = await UserModel.findOne({
+    const user = await MySqlDB.user.findOne({
       where: {
         userName
       }

@@ -1,5 +1,8 @@
 'use strict'
 
+const fs = require('fs')
+const path = require('path')
+
 const _ = require('lodash')
 const { existsSync, mkdir } = require('fs')
 
@@ -13,7 +16,14 @@ const env = process.env.NODE_ENV || 'development'
 
 if (env) {
   try {
-    let envConfig = require(`./config-${env}`)
+    const customConfigPath = path.join(__dirname, `config-${env}.js`)
+    const defaultConfigPath = path.join(__dirname, `config-default.js`)
+
+    if (!fs.existsSync(customConfigPath)) {
+      fs.copyFileSync(defaultConfigPath, customConfigPath)
+    }
+
+    let envConfig = require(customConfigPath)
     config = _.merge(config, envConfig)
   } catch (e) {
     logger.error({
@@ -23,6 +33,7 @@ if (env) {
   }
 }
 
+// 初始化上传文件夹
 if (!existsSync(config.app.upload.tmpDir)) {
   mkdir(config.app.upload.tmpDir, { recursive: true }, (err) => {
     if (err) {
