@@ -1,24 +1,25 @@
 'use strict'
 
 const AuthCtrl = require('../controller/auth')
+const session = require('../middleware/session')
 
 module.exports = [
   {
     method: 'post',
     path: '/auth/login',
     controller: AuthCtrl.login,
-    middleware: []
+    middleware: session
   },
   {
     method: 'post',
     path: '/auth/check_login',
     controller: AuthCtrl.checkLogin,
-    middleware: []
+    middleware: session
   },
   {
     method: 'delete',
     path: '/auth/logout',
     controller: AuthCtrl.logout,
-    middleware: []
+    middleware: session
   }
 ]

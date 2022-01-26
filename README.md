@@ -14,6 +14,7 @@ Koa2 快速开始脚手架项目。
 
 ## 目录
 
+    ├── .vscode                                // vscode 配置
     ├── app.js                                 // app入口文件
     ├── common                                 // 公共库
     ├── config                                 // 应用配置

@@ -5,7 +5,6 @@ const json = require('koa-json')
 const views = require('koa-views')
 const koaBody = require('koa-body')
 const cors = require('koa-cors')
-const session = require('koa-session')
 
 const router = require('../router')
 const logger = require('../lib/logger')
@@ -13,7 +12,6 @@ const config = require('../config')
 
 const requestTime = require('./response-time')
 const responseFormat = require('./response-format')
-// const session = require('./session')
 
 const SysError = require('../common/sys-error')
 const ErrorCode = require('../common/error-code')
@@ -42,7 +40,6 @@ module.exports = (app) => {
     .use(requestTime({ hrtime: true }))
     // response format
     .use(responseFormat())
-    .use(session(config.koaSession.config, app))
     // body parse
     .use(
       koaBody(
