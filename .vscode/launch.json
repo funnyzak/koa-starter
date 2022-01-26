@@ -15,6 +15,7 @@
         "${workspaceRoot}/node_modules/**/*.js",
         "<node_internals>/**"
       ],
+      "args": ["--trace-warnings"],
       "program": "${workspaceFolder}/index.js"
     }
   ]
