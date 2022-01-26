@@ -7,8 +7,14 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
+      "name": "Launch",
+      "runtimeExecutable": "nodemon", // 什么命令执行 app.js，这里设置为 nodemon 或者是 node-dev，默认是 node.
+      "restart": true, // 在终止 Node.js 后重启会话
+      "console": "integratedTerminal", // 启动调试目标的位置，这里选择在 vscode 的集成终端输出信息
+      "skipFiles": [
+        "${workspaceRoot}/node_modules/**/*.js",
+        "<node_internals>/**"
+      ],
       "program": "${workspaceFolder}/index.js"
     }
   ]

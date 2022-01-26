@@ -1,17 +1,17 @@
 {
-  "name": "aliyun-oss-transfer",
+  "name": "koa-quick-start",
   "version": "1.0.0",
-  "description": "aliyun oss file transfer",
+  "description": "koa quick start project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "prepare": "husky install"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/funnyzak/aliyun-oss-transfer.git"
+    "url": "git+ssh://git@github.com/funnyzak/koa-quick-start.git"
   },
   "keywords": [
     "aliyun",
@@ -22,9 +22,9 @@
   "author": "Leon <silenceace@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/funnyzak/aliyun-oss-transfer/issues"
+    "url": "https://github.com/funnyzak/koa-quick-start/issues"
   },
-  "homepage": "https://github.com/funnyzak/aliyun-oss-transfer#readme",
+  "homepage": "https://github.com/funnyzak/koa-quick-start#readme",
   "dependencies": {
     "@babel/core": "^7.16.10",
     "@babel/preset-env": "^7.16.11",

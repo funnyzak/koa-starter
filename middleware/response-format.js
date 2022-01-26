@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-import logger from '../lib/logger';
+import logger from '../lib/logger'
 
-import SysError from '../common/sys-error';
-import ErrorCode from '../common/error-code';
-import ErrorMsg from '../common/error-msg';
-import StatusCode from '../common/status-code';
-import LogType from '../common/log-type';
+import SysError from '../common/sys-error'
+import ErrorCode from '../common/error-code'
+import ErrorMsg from '../common/error-msg'
+import StatusCode from '../common/status-code'
+import LogType from '../common/log-type'
 
 const parseError = (ctx, err) => {
   if (err instanceof SysError) {
@@ -19,9 +19,9 @@ const parseError = (ctx, err) => {
         status: ctx.status
       },
       payload: ctx.reqParams
-    });
+    })
 
-    ctx.status = err.status;
+    ctx.status = err.status
 
     // 自定义错误
     return {
@@ -29,7 +29,7 @@ const parseError = (ctx, err) => {
       code: err.code || ErrorCode.UNKNOWN_ERROR,
       data: err.data || null,
       message: err.message
-    };
+    }
   }
   logger.error({
     type: LogType.SERVER_ERROR,
@@ -40,22 +40,22 @@ const parseError = (ctx, err) => {
       status: ctx.status
     },
     payload: ctx.reqParams
-  });
+  })
 
-  ctx.status = StatusCode.BAD_REQUEST;
+  ctx.status = StatusCode.BAD_REQUEST
   // 未知错误
   return {
     success: false,
     code: ErrorCode.UNKNOWN_ERROR,
     data: null,
     message: ErrorMsg.UNKNOWN_ERROR
-  };
-};
+  }
+}
 
 export default () => {
   return async (ctx, next) => {
     try {
-      await next();
+      await next()
 
       // 不存在的路由（忽略 HTTP 方法）
       if (ctx.status === StatusCode.NOT_FOUND) {
@@ -63,17 +63,17 @@ export default () => {
           ErrorMsg.ROUTER_NOT_FOUND,
           ErrorCode.ROUTER_NOT_FOUND,
           StatusCode.NOT_FOUND
-        );
+        )
       }
 
       const responseBody = {
         success: true,
         code: ErrorCode.OK,
-        data: JSON.parse(ctx.body),
+        data: ctx.body,
         message: null
-      };
+      }
 
-      ctx.body = responseBody;
+      ctx.body = responseBody
 
       logger.info({
         type: LogType.RUN_INFO,
@@ -85,10 +85,10 @@ export default () => {
         },
         payload: ctx.reqParams,
         response: responseBody
-      });
+      })
     } catch (err) {
-      ctx.status = err.status || StatusCode.OK;
-      ctx.body = parseError(ctx, err);
+      ctx.status = err.status || StatusCode.OK
+      ctx.body = parseError(ctx, err)
     }
-  };
-};
+  }
+}

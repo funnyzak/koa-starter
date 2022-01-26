@@ -2,7 +2,7 @@ import path from 'path'
 
 const config = {
   app: {
-    name: 'aliyun oss tranfer',
+    name: 'koa quick start',
     host: 'http://127.0.0.1:5000', // app主页地址
     port: '2058', // 服务启动监听端口
     upload: {

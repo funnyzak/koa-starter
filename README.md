@@ -38,7 +38,7 @@ Koa2 快速开始脚手架项目。
 ```bash
 npm install
 
-## 开发启动
+## 开发启动。需要安装nodemon `npm install -g nodemon`
 npm run dev
 
 ## 生产启动
