@@ -12,7 +12,9 @@ const config = {
       objectPrefix: '/transfer',
       expiration: 600 // oss 文件对象有效期，单位（秒）
     },
-    apiUrlPrefix: '/api/v1' // api url path
+    apiUrlPrefix: '/api/v1', // api url path
+    mongodb: false,
+    mysql: false
   },
   // https://github.com/koajs/koa-body
   koaBody: {
@@ -62,6 +64,23 @@ const config = {
       uri:
         'mongodb://adm:12345679@@127.0.0.1:27017/transferdb' +
         '?authSource=admin&maxPoolSize=50&w=majority&connectTimeoutMS=10000'
+    },
+    mysql: {
+      username: 'root',
+      password: '123456',
+      database: 'test',
+      options: {
+        dialect: 'mysql',
+        host: '127.0.0.1',
+        port: 3306,
+        logging: false, //是否打开SQL日志
+        pool: {
+          max: 5,
+          min: 0,
+          idle: 10000
+        },
+        operatorsAliases: false
+      }
     }
   },
   aliyun: {
