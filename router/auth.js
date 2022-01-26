@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-import AuthCtrl from '../controller/auth';
+import AuthCtrl from '../controller/auth'
 
 module.exports = [
   {
@@ -21,4 +21,4 @@ module.exports = [
     controller: AuthCtrl.logout,
     middleware: []
   }
-];
+]

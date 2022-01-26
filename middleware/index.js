@@ -1,37 +1,37 @@
-import path from 'path';
-import favicon from 'koa-favicon';
-import serve from 'koa-static';
-import json from 'koa-json';
-import views from 'koa-views';
-import koaBody from 'koa-body';
-import session from 'koa-session';
+import path from 'path'
+import favicon from 'koa-favicon'
+import serve from 'koa-static'
+import json from 'koa-json'
+import views from 'koa-views'
+import koaBody from 'koa-body'
+import session from 'koa-session'
 
-import router from '../router';
-import logger from '../lib/logger';
-import config from '../config';
+import router from '../router'
+import logger from '../lib/logger'
+import config from '../config'
 
-import requestTime from './response-time';
-import responseFormat from './response-format';
+import requestTime from './response-time'
+import responseFormat from './response-format'
 // import session from './session'
 
-import SysError from '../common/sys-error';
-import ErrorCode from '../common/error-code';
-import ErrorMsg from '../common/error-msg';
-import StatusCode from '../common/status-code';
-import LogType from '../common/log-type';
+import SysError from '../common/sys-error'
+import ErrorCode from '../common/error-code'
+import ErrorMsg from '../common/error-msg'
+import StatusCode from '../common/status-code'
+import LogType from '../common/log-type'
 
 export default (app) => {
   app.on('error', (err, ctx) => {
     logger.error({
       type: LogType.SERVER_ERROR,
       msg: err.message
-    });
+    })
 
-    ctx.body = {};
-  });
+    ctx.body = {}
+  })
 
   if (config.koaSession.config.signed) {
-    app.keys = config.koaSession.keys;
+    app.keys = config.koaSession.keys
   }
 
   app
@@ -51,13 +51,13 @@ export default (app) => {
                   ErrorMsg.REQUEST_ENTITY_TOO_LARGE,
                   ErrorCode.REQUEST_ENTITY_TOO_LARGE,
                   err.status
-                );
+                )
               } else {
                 throw new SysError(
                   ErrorMsg.UNKNOWN_ERROR,
                   ErrorCode.UNKNOWN_ERROR,
                   StatusCode.BAD_REQUEST
-                );
+                )
               }
             }
           },
@@ -89,7 +89,7 @@ export default (app) => {
             ErrorMsg.ROUTER_NOT_FOUND,
             ErrorCode.ROUTER_NOT_FOUND,
             StatusCode.NOT_FOUND
-          );
+          )
         },
         // 路由存在，无对应方法
         methodNotAllowed: () => {
@@ -97,8 +97,8 @@ export default (app) => {
             ErrorMsg.METHOD_NOT_ALLOWED,
             ErrorCode.ROUTER_NOT_FOUND,
             StatusCode.METHOD_NOT_ALLOWED
-          );
+          )
         }
       })
-    );
-};
+    )
+}

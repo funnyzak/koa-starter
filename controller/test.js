@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 export default {
   /**
@@ -6,7 +6,7 @@ export default {
    * @param {*} ctx
    */
   async test(ctx) {
-    ctx.body = '正常测试 OK';
+    ctx.body = '正常测试 OK'
   },
 
   /**
@@ -14,6 +14,6 @@ export default {
    * @param {*} ctx
    */
   async throwUndefinedError(ctx) {
-    ctx.body = xxxx;
+    ctx.body = xxxx
   }
-};
+}

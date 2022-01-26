@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'path'
 
 const config = {
   app: {
@@ -79,6 +79,6 @@ const config = {
       }
     ]
   }
-};
+}
 
-export default config;
+export default config

@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import UserCtrl from '../controller/user';
-import UserSchema from '../schema/user';
+import UserCtrl from '../controller/user'
+import UserSchema from '../schema/user'
 
 module.exports = [
   {
@@ -10,4 +10,4 @@ module.exports = [
     controller: UserCtrl.getUser,
     checkParam: UserSchema.getUser
   }
-];
+]

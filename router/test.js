@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import TestCtrl from '../controller/test';
-import PermissionCtrl from '../controller/permission';
+import TestCtrl from '../controller/test'
+import PermissionCtrl from '../controller/permission'
 
 module.exports = [
   {
@@ -15,8 +15,8 @@ module.exports = [
     path: '/throw_undefined_error',
     controller: TestCtrl.throwUndefinedError,
     middleware: async (ctx, next) => {
-      ctx.set('hello', 'world');
-      await next();
+      ctx.set('hello', 'world')
+      await next()
     }
   },
   {
@@ -25,4 +25,4 @@ module.exports = [
     controller: TestCtrl.test,
     middleware: PermissionCtrl.checkNoPermission
   }
-];
+]

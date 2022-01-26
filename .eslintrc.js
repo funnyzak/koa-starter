@@ -9,7 +9,7 @@ module.exports = {
   },
   extends: ['prettier'],
   rules: {
-    'semi': ['error', 'always'],
+    'semi': ['error', 'never'],
     'comma-dangle': ['error', 'never'],
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
@@ -49,4 +49,4 @@ module.exports = {
     'no-else-return': 2, //如果if语句里面有return,后面不能跟else语句
     'quote-props': ['warn', 'consistent']
   }
-};
+}

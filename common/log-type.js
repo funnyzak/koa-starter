@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 export default {
   INIT: 'Server Init',
@@ -10,4 +10,4 @@ export default {
   SERVER_ERROR: 'Server Error',
   RUN_WARN: 'RUN Warn',
   RUN_INFO: 'RUN Info'
-};
+}

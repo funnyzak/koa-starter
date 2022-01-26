@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 export default {
   OK: '请求成功',
@@ -11,4 +11,4 @@ export default {
 
   NEED_LOGIN: '需要登录',
   USER_NOT_FOUND: '用户不存在'
-};
+}

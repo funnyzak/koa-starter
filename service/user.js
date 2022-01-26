@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-import ErrorMsg from '../common/error-msg';
-import ErrorCode from '../common/error-code';
-import SysError from '../common/sys-error';
+import ErrorMsg from '../common/error-msg'
+import ErrorCode from '../common/error-code'
+import SysError from '../common/sys-error'
 
 // const UserModel = require('../model/user');
 
@@ -19,4 +19,4 @@ module.exports = {
   //     throw new SysError(ErrorMsg.USER_NOT_FOUND, ErrorCode.USER_NOT_FOUND);
   //   }
   // },
-};
+}

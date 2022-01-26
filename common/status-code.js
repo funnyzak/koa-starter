@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 export default {
   OK: 200,
@@ -12,4 +12,4 @@ export default {
   REQUEST_ENTITY_TOO_LARGE: 413,
   INTERNAL_SERVER_ERROR: 500,
   BAD_GATEWAY: 502
-};
+}

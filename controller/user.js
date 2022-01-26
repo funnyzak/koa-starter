@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-import UserService from '../service/user';
+import UserService from '../service/user'
 
 export default {
   /**
@@ -8,8 +8,8 @@ export default {
    * @param {*} ctx
    */
   async getUser(ctx) {
-    const { userId } = ctx.reqParams.router;
+    const { userId } = ctx.reqParams.router
 
-    ctx.body = await UserService.getUser(userId);
+    ctx.body = await UserService.getUser(userId)
   }
-};
+}

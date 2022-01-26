@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 export default {
   OK: 0,
@@ -9,4 +9,4 @@ export default {
 
   NEED_LOGIN: 11000,
   USER_NOT_FOUND: 11001
-};
+}
