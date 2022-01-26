@@ -21,8 +21,7 @@ module.exports = {
     })
     if (user) {
       return user
-    } 
-      throw new SysError(ErrorMsg.USER_NOT_FOUND, ErrorCode.USER_NOT_FOUND)
-    
+    }
+    throw new SysError(ErrorMsg.USER_NOT_FOUND, ErrorCode.USER_NOT_FOUND)
   }
 }
