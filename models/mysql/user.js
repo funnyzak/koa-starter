@@ -4,13 +4,16 @@ let model = function (sequelize) {
   return sequelize.define(
     'user',
     {
-      userId: {
-        type: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.BIGINT,
         field: 'user_id',
         primaryKey: true,
         autoIncrement: true
       },
-      name: DataTypes.STRING,
+      userName: {
+        type: DataTypes.STRING,
+        field: 'user_name'
+      },
       ctime: DataTypes.DATE,
       mtime: DataTypes.DATE
     },
