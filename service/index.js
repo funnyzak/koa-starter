@@ -2,26 +2,45 @@
 
 const config = require('../config')
 const AliOSS = require('../lib/aliyun/oss')
+const FileObject = require('./file-object')
+const UserModel = require('./user')
 const logger = require('../lib/logger')
 
 let aliyunOSSList = config.aliyun.oss.map((v) => {
   return new AliOSS(v)
 })
 
-let MongoDB, MySqlDB
+let mongoData, MySqlData
 
-!(() => {
+!(async () => {
   if (config.app.mongodb) {
-    MongoDB = require('../models/mongo')
+    mongoData = require('../models/mongo')
+
+    // demo data
+    const fileObject = await FileObject()
+    logger.info({
+      msg: 'create mongo demo data.',
+      data: await fileObject.utils.upsert(
+        {
+          md5: 'kehdkweisdsjsdie'
+        },
+        {
+          name: 'hello world',
+          path: '/abc/1.jpg',
+          md5: 'kehdkweisdsjsdie',
+          size: 2048
+        }
+      )
+    })
   }
   if (config.app.mysql) {
-    MySqlDB = require('../models/mysql')
+    MySqlData = require('../models/mysql')
   }
 })()
 
 module.exports.aliyun = {
   ossList: aliyunOSSList
 }
-module.exports.MongoDB = MongoDB
-module.exports.MySqlDB = MySqlDB
+module.exports.mongoData = mongoData
+module.exports.MySqlData = MySqlData
 module.exports.config = config
