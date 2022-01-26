@@ -5,11 +5,11 @@
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-quick-start.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/koa-quick-start
 
-Koa 脚手架项目。
+Koa2 快速开始脚手架项目。
 
 ## 特点
 
-1. 基于 KOA 框架
+1. 基于 KOA2 框架
 2. 数据库使用 MongoDB
 
 ## 目录
