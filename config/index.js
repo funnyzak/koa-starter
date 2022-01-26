@@ -1,12 +1,12 @@
 'use strict'
 
-import _ from 'lodash'
-import { existsSync, mkdir } from 'fs'
+const _ = require('lodash')
+const { existsSync, mkdir } = require('fs')
 
-import logger from '../lib/logger'
-import LogType from '../common/log-type'
+const logger = require('../lib/logger')
+const LogType = require('../common/log-type')
 
-import config from './config-default'
+let config = require('./config-default')
 
 // load 指定环境配置
 const env = process.env.NODE_ENV
@@ -33,4 +33,4 @@ if (!existsSync(config.app.upload.tmpDir)) {
   })
 }
 
-export default config
+module.exports = config

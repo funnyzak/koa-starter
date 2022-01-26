@@ -1,26 +1,26 @@
-import path from 'path'
-import favicon from 'koa-favicon'
-import serve from 'koa-static'
-import json from 'koa-json'
-import views from 'koa-views'
-import koaBody from 'koa-body'
-import session from 'koa-session'
+const path = require('path')
+const favicon = require('koa-favicon')
+const serve = require('koa-static')
+const json = require('koa-json')
+const views = require('koa-views')
+const koaBody = require('koa-body')
+const session = require('koa-session')
 
-import router from '../router'
-import logger from '../lib/logger'
-import config from '../config'
+const router = require('../router')
+const logger = require('../lib/logger')
+const config = require('../config')
 
-import requestTime from './response-time'
-import responseFormat from './response-format'
-// import session from './session'
+const requestTime = require('./response-time')
+const responseFormat = require('./response-format')
+// const session = require('./session')
 
-import SysError from '../common/sys-error'
-import ErrorCode from '../common/error-code'
-import ErrorMsg from '../common/error-msg'
-import StatusCode from '../common/status-code'
-import LogType from '../common/log-type'
+const SysError = require('../common/sys-error')
+const ErrorCode = require('../common/error-code')
+const ErrorMsg = require('../common/error-msg')
+const StatusCode = require('../common/status-code')
+const LogType = require('../common/log-type')
 
-export default (app) => {
+module.exports = (app) => {
   app.on('error', (err, ctx) => {
     logger.error({
       type: LogType.SERVER_ERROR,

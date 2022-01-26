@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import LogType from '../common/log-type';
-import logger from '../lib/logger';
+const LogType = require('../common/log-type')
+const logger = require('../lib/logger')
 
 /**
  * Add X-Response-Time header field.
@@ -12,21 +12,21 @@ import logger from '../lib/logger';
  *          `false` to use time in milliseconds.
  *          Default is `false` to keep back compatible.
  */
-export default (options) => {
-  let hrtime = options && options.hrtime;
+module.exports = (options) => {
+  let hrtime = options && options.hrtime
 
   return async (ctx, next) => {
-    let start = process.hrtime();
-    await next();
-    let delta = process.hrtime(start);
+    let start = process.hrtime()
+    await next()
+    let delta = process.hrtime(start)
 
     // Format to high resolution time with nano time
-    delta = delta[0] * 1000 + delta[1] / 1000000;
+    delta = delta[0] * 1000 + delta[1] / 1000000
     if (!hrtime) {
       // truncate to milliseconds.
-      delta = Math.round(delta);
+      delta = Math.round(delta)
     }
-    ctx.set('X-Response-Time', delta + 'ms');
+    ctx.set('X-Response-Time', delta + 'ms')
 
     logger.info({
       type: LogType.REQUEST_TIME,
@@ -36,6 +36,6 @@ export default (options) => {
         path: ctx.path,
         delta
       }
-    });
-  };
-};
+    })
+  }
+}

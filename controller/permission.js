@@ -1,14 +1,14 @@
 'use strict'
 
-import ErrorMsg from '../common/error-msg'
-import ErrorCode from '../common/error-code'
-import StatusCode from '../common/status-code'
-import SysError from '../common/sys-error'
+const ErrorMsg = require('../common/error-msg')
+const ErrorCode = require('../common/error-code')
+const StatusCode = require('../common/status-code')
+const SysError = require('../common/sys-error')
 
 /**
  * 这里只是作为路由 permissions 的一个示例
  */
-export default {
+module.exports = {
   /**
    * 没有权限
    * @param {*} ctx

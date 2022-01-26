@@ -1,9 +1,9 @@
 'use strict'
 
-import config from '../config/config-development'
-import AliOSS from '../lib/aliyun/oss'
-import MongoDbUtils from '../lib/db/mongo'
-import logger from '../lib/logger'
+const config = require('../config/config-development')
+const AliOSS = require('../lib/aliyun/oss')
+const MongoDbUtils = require('../lib/db/mongo')
+const logger = require('../lib/logger')
 
 let aliyunOSSList = config.aliyun.oss.map((v) => {
   return new AliOSS(v)
@@ -17,14 +17,14 @@ let mongoDB = new MongoDbUtils(config.db.mongoDb)
   }
 })()
 
-export const aliyun = {
+module.exports.aliyun = {
   ossList: aliyunOSSList
 }
 
-export const db = {
+module.exports.db = {
   mongoDB
 }
 
-export default {
+module.exports = {
   config
 }

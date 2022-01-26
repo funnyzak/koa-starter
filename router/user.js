@@ -1,7 +1,7 @@
 'use strict'
 
-import UserCtrl from '../controller/user'
-import UserSchema from '../schema/user'
+const UserCtrl = require('../controller/user')
+const UserSchema = require('../schema/user')
 
 module.exports = [
   {

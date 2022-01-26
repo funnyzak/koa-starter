@@ -1,6 +1,6 @@
 'use strict'
 
-export default {
+module.exports = {
   INIT: 'Server Init',
   INIT_ROUTER: 'Server Init Router',
   CONFIG_ERROR: 'Config Error',

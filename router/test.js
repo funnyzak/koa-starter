@@ -1,7 +1,7 @@
 'use strict'
 
-import TestCtrl from '../controller/test'
-import PermissionCtrl from '../controller/permission'
+const TestCtrl = require('../controller/test')
+const PermissionCtrl = require('../controller/permission')
 
 module.exports = [
   {

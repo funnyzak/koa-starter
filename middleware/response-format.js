@@ -1,12 +1,12 @@
 'use strict'
 
-import logger from '../lib/logger'
+const logger = require('../lib/logger')
 
-import SysError from '../common/sys-error'
-import ErrorCode from '../common/error-code'
-import ErrorMsg from '../common/error-msg'
-import StatusCode from '../common/status-code'
-import LogType from '../common/log-type'
+const SysError = require('../common/sys-error')
+const ErrorCode = require('../common/error-code')
+const ErrorMsg = require('../common/error-msg')
+const StatusCode = require('../common/status-code')
+const LogType = require('../common/log-type')
 
 const parseError = (ctx, err) => {
   if (err instanceof SysError) {
@@ -52,7 +52,7 @@ const parseError = (ctx, err) => {
   }
 }
 
-export default () => {
+module.exports = () => {
   return async (ctx, next) => {
     try {
       await next()

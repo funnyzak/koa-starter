@@ -1,6 +1,6 @@
 'use strict'
 
-export default {
+module.exports = {
   OK: '请求成功',
   UNKNOWN_ERROR: '系统开小差去了，请稍后重试',
   ROUTER_NOT_FOUND: '无效的请求',

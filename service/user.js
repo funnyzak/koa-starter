@@ -1,8 +1,8 @@
 'use strict'
 
-import ErrorMsg from '../common/error-msg'
-import ErrorCode from '../common/error-code'
-import SysError from '../common/sys-error'
+const ErrorMsg = require('../common/error-msg')
+const ErrorCode = require('../common/error-code')
+const SysError = require('../common/sys-error')
 
 // const UserModel = require('../model/user');
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import AuthCtrl from '../controller/auth'
+const AuthCtrl = require('../controller/auth')
 
 module.exports = [
   {

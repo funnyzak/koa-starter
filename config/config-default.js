@@ -1,4 +1,4 @@
-import path from 'path'
+const path = require('path')
 
 const config = {
   app: {
@@ -81,4 +81,4 @@ const config = {
   }
 }
 
-export default config
+module.exports = config

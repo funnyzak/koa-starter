@@ -1,12 +1,12 @@
 'use strict'
 
-import fs from 'fs'
-import Router from 'koa-router'
+const fs = require('fs')
+const Router = require('koa-router')
 
-import CheckParam from '../middleware/check-param'
-import logger from '../lib/logger'
-import config from '../config'
-import LogType from '../common/log-type'
+const CheckParam = require('../middleware/check-param')
+const logger = require('../lib/logger')
+const config = require('../config')
+const LogType = require('../common/log-type')
 
 const router = new Router({ prefix: config.app.urlPrefix })
 
@@ -51,4 +51,4 @@ function mergeRouters() {
 
 mergeRouters()
 
-export default router
+module.exports = router

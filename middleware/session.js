@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import session from 'koa-session';
-import app from '../app';
-import config from '../config';
+const session = require('koa-session')
+const app = require('../app')
+const config = require('../config')
 
-export default () => session({ ...config.koaSession.config }, app);
+module.exports = () => session({ ...config.koaSession.config }, app)

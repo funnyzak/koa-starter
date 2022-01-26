@@ -1,6 +1,6 @@
 'use strict'
 
-export default {
+module.exports = {
   OK: 200,
   MOVED_PERMANENTLY: 301,
   FOUND: 302,

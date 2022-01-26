@@ -1,8 +1,8 @@
 'use strict'
 
-import UserService from '../service/user'
+const UserService = require('../service/user')
 
-export default {
+module.exports = {
   /**
    * 获取用户
    * @param {*} ctx

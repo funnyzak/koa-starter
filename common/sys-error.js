@@ -1,9 +1,9 @@
 'use strict'
 
-import ErrorCode from './error-code'
-import StatusCode from './status-code'
+const ErrorCode = require('./error-code')
+const StatusCode = require('./status-code')
 
-export default class SysError extends Error {
+class SysError extends Error {
   constructor(
     message,
     errorCode = ErrorCode.UNKNOWN_ERROR,
@@ -15,3 +15,5 @@ export default class SysError extends Error {
     this.status = status
   }
 }
+
+module.exports = SysError

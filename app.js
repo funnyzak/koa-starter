@@ -1,14 +1,14 @@
 'use strict'
 
-import Koa from 'koa'
-import middleware from './middleware'
-import config from './config/config-development'
-import logger from './lib/logger'
-import LogType from './common/log-type'
+const Koa = require('koa')
+const middleware = require('./middleware')
+const config = require('./config/config-development')
+const logger = require('./lib/logger')
+const LogType = require('./common/log-type')
 
 let app = new Koa()
 // session 会引入 app.js
-export default app
+module.exports = app
 
 middleware(app)
 

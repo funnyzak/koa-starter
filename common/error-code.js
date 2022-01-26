@@ -1,6 +1,6 @@
 'use strict'
 
-export default {
+module.exports = {
   OK: 0,
   UNKNOWN_ERROR: 10000,
   ROUTER_NOT_FOUND: 10001,

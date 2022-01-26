@@ -1,6 +1,6 @@
 'use strict'
 
-export default {
+module.exports = {
   /**
    * 第一个测试
    * @param {*} ctx
