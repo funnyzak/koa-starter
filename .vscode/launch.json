@@ -16,6 +16,9 @@
         "<node_internals>/**"
       ],
       "args": ["--trace-warnings"],
+      "env": {
+        "NODE_ENV": "development"
+      },
       "program": "${workspaceFolder}/index.js"
     }
   ]
