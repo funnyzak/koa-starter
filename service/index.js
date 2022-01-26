@@ -1,30 +1,29 @@
 'use strict'
 
-const config = require('../config/config-development')
+const config = require('../config')
 const AliOSS = require('../lib/aliyun/oss')
-const MongoDbUtils = require('../lib/db/mongo')
 const logger = require('../lib/logger')
 
 let aliyunOSSList = config.aliyun.oss.map((v) => {
   return new AliOSS(v)
 })
 
-let mongoDB = new MongoDbUtils(config.db.mongoDb)
+let MongoDB, MySqlDB
 
 !(() => {
-  if (mongoDB.ping()) {
-    logger.info(`MongoDB ${mongoDB.opts.db} is ok.`)
+  if (config.app.mongodb) {
+    const MongoDbClient = require('../lib/db/mongo')
+    MongoDB = new MongoDbClient(config.db.mongoDb)
+    if (MongoDB.ping()) logger.info(`MongoDB ${MongoDB.opts.db} is ok.`)
+  }
+  if (config.app.mysql) {
+    MySqlDB = require('../models/mysql')
   }
 })()
 
 module.exports.aliyun = {
   ossList: aliyunOSSList
 }
-
-module.exports.db = {
-  mongoDB
-}
-
-module.exports = {
-  config
-}
+module.exports.MongoDB = MongoDB
+module.exports.MySqlDB = MySqlDB
+module.exports.config = config

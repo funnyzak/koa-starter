@@ -10,11 +10,12 @@ Koa2 快速开始脚手架项目。
 ## 特点
 
 1. 基于 KOA2 框架
-2. 数据库使用 MongoDB
-3. 集成 joi 路由验证
-4. 集成 koa-session
-5. eslint、prettier 代码规范
-6. ejs 模板引擎
+2. 集成 MongoDB 数据库
+3. 集成 MySQL 数据库
+4. 集成 joi 路由验证
+5. 集成 koa-session
+6. eslint、prettier 代码规范
+7. ejs 模板引擎
 
 ## 目录
 

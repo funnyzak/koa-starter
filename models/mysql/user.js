@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize')
 
 let model = function (sequelize) {
-  sequelize.define(
+  return sequelize.define(
     'user',
     {
       userId: {
