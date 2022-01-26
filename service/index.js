@@ -12,9 +12,7 @@ let MongoDB, MySqlDB
 
 !(() => {
   if (config.app.mongodb) {
-    const MongoDbClient = require('../lib/db/mongo')
-    MongoDB = new MongoDbClient(config.db.mongoDb)
-    if (MongoDB.ping()) logger.info(`MongoDB ${MongoDB.opts.db} is ok.`)
+    MongoDB = require('../models/mongo')
   }
   if (config.app.mysql) {
     MySqlDB = require('../models/mysql')
