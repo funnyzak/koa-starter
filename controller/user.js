@@ -8,8 +8,8 @@ module.exports = {
    * @param {*} ctx
    */
   async getUser(ctx) {
-    const { userId } = ctx.reqParams.router
+    const { username } = ctx.reqParams.router
 
-    ctx.body = await UserService.getUser(userId)
+    ctx.body = await UserService.getUser(username)
   }
 }

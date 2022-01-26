@@ -6,7 +6,7 @@ const UserSchema = require('../schema/user')
 module.exports = [
   {
     method: 'get',
-    path: '/users/:userId',
+    path: '/users/:username',
     controller: UserCtrl.getUser,
     checkParam: UserSchema.getUser
   }
