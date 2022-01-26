@@ -48,7 +48,7 @@ const config = {
       /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
       renew: true,
       /** (boolean) secure cookie*/
-      secure: true,
+      secure: false,
       /** (string) session cookie sameSite options (default null, don't set it) */
       sameSite: null
     }

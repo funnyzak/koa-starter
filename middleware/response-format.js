@@ -87,7 +87,6 @@ module.exports = () => {
         response: responseBody
       })
     } catch (err) {
-      ctx.status = err.status || StatusCode.OK
       ctx.body = parseError(ctx, err)
     }
   }

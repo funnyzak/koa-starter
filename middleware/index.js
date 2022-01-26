@@ -4,6 +4,7 @@ const serve = require('koa-static')
 const json = require('koa-json')
 const views = require('koa-views')
 const koaBody = require('koa-body')
+const cors = require('koa-cors')
 const session = require('koa-session')
 
 const router = require('../router')
@@ -35,6 +36,8 @@ module.exports = (app) => {
   }
 
   app
+    // cors
+    .use(cors())
     // response time
     .use(requestTime({ hrtime: true }))
     // response format
