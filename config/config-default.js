@@ -60,9 +60,9 @@ const config = {
    */
   db: {
     mongoDb: {
-      db: 'transferdb',
+      db: 'koa-quick-start',
       uri:
-        'mongodb://adm:12345679@@127.0.0.1:27017/transferdb' +
+        'mongodb://adm:12345679@@127.0.0.1:27017/koa-quick-start' +
         '?authSource=admin&maxPoolSize=50&w=majority&connectTimeoutMS=10000'
     },
     mysql: {
