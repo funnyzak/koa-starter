@@ -75,3 +75,6 @@ config/config-*.js
 !config/config-default.js
 
 test.js
+
+
+*.test.js
