@@ -10,7 +10,7 @@ const ErrorMsg = require('../common/error-msg')
 const StatusCode = require('../common/status-code')
 const LogType = require('../common/log-type')
 
-module.exports = (params) => {
+module.exports = (checkParamsObj) => {
   return async function (ctx, next) {
     // 请求参数初始化
     const reqParam = {
@@ -22,13 +22,12 @@ module.exports = (params) => {
 
     ctx.reqParams = reqParam
 
-    if (params) {
-      const schemaKeys = Object.getOwnPropertyNames(params)
+    if (checkParamsObj) {
+      const schemaKeys = Object.getOwnPropertyNames(checkParamsObj)
 
       for (const keyName of schemaKeys) {
-        const { error, value } = Joi.validate(
-          reqParam[keyName],
-          params[keyName]
+        const { value, error } = checkParamsObj[keyName].validate(
+          reqParam[keyName]
         )
 
         if (error) {
@@ -38,7 +37,9 @@ module.exports = (params) => {
           })
 
           throw new SysError(
-            ErrorMsg.INVALID_PARAM,
+            process.env.NODE_ENV === 'development'
+              ? error.message
+              : ErrorMsg.INVALID_PARAM,
             ErrorCode.INVALID_PARAM,
             StatusCode.BAD_REQUEST
           )

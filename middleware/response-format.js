@@ -15,6 +15,7 @@ const parseError = (ctx, err) => {
     logger.warn({
       type: LogType.SERVER_WARN,
       msg: err.message,
+      stack: err.stack,
       base: {
         method: ctx.method,
         path: ctx.path,
@@ -36,6 +37,7 @@ const parseError = (ctx, err) => {
   logger.error({
     type: LogType.SERVER_ERROR,
     msg: err.message,
+    stack: err.stack,
     base: {
       method: ctx.method,
       path: ctx.path,
@@ -50,7 +52,10 @@ const parseError = (ctx, err) => {
     success: false,
     code: ErrorCode.UNKNOWN_ERROR,
     data: null,
-    message: ErrorMsg.UNKNOWN_ERROR
+    message:
+      process.env.NODE_ENV === 'development'
+        ? err.message
+        : ErrorMsg.UNKNOWN_ERROR
   }
 }
 
