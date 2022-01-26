@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize')
 
 let model = function (sequelize) {
   return sequelize.define(
-    'user',
+    'User',
     {
       id: {
         type: DataTypes.BIGINT,
