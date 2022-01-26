@@ -8,6 +8,8 @@ const ErrorMsg = require('../common/error-msg')
 const StatusCode = require('../common/status-code')
 const LogType = require('../common/log-type')
 
+const { isJSON } = require('../lib/utils')
+
 const parseError = (ctx, err) => {
   if (err instanceof SysError) {
     logger.warn({
@@ -69,7 +71,7 @@ module.exports = () => {
       const responseBody = {
         success: true,
         code: ErrorCode.OK,
-        data: ctx.body,
+        data: isJSON(ctx.body) ? JSON.parse(ctx.body) : ctx.body,
         message: null
       }
 
