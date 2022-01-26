@@ -44,7 +44,7 @@ Koa2 快速开始脚手架项目。
 npm install
 
 ## 开发启动
-npm run dev
+npm run watch
 
 ## 生产启动
 npm start
