@@ -56,6 +56,7 @@ mergeRouters(apiRouter, './api')
 
 // 其他
 const generalRouter = new Router({
+  prefix: '',
   sensitive: true
 })
 mergeRouters(generalRouter, './general')
