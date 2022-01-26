@@ -1,7 +1,7 @@
 'use strict'
 
-const TestCtrl = require('../controller/test')
-const PermissionCtrl = require('../controller/permission')
+const TestCtrl = require('../../controller/api/test')
+const PermissionCtrl = require('../../controller/api/permission')
 
 module.exports = [
   {

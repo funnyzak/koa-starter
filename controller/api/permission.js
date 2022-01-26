@@ -1,9 +1,9 @@
 'use strict'
 
-const ErrorMsg = require('../common/error-msg')
-const ErrorCode = require('../common/error-code')
-const StatusCode = require('../common/status-code')
-const SysError = require('../common/sys-error')
+const StatusCode = require('../../common/status-code')
+const ErrorMsg = require('../../common/error-msg')
+const ErrorCode = require('../../common/error-code')
+const SysError = require('../../common/sys-error')
 
 /**
  * 这里只是作为路由 permissions 的一个示例

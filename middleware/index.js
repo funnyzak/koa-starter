@@ -6,7 +6,7 @@ const views = require('koa-views')
 const koaBody = require('koa-body')
 const cors = require('koa-cors')
 
-const router = require('../router')
+const routers = require('../router')
 const logger = require('../lib/logger')
 const config = require('../config')
 
@@ -77,28 +77,32 @@ module.exports = (app) => {
     .use(json())
     // ejs engine
     .use(views(path.join(__dirname, '../views/ejs'), { extension: 'ejs' }))
+
+  routers.forEach((router) => {
     // use router
-    .use(router.routes())
-    // controller 未传入 next，路由匹配默认不会调用 allowedMethods
-    .use(
-      router.allowedMethods({
-        throw: true,
-        // 不支持此 HTTP 方法
-        notImplemented: () => {
-          return new SysError(
-            ErrorMsg.ROUTER_NOT_FOUND,
-            ErrorCode.ROUTER_NOT_FOUND,
-            StatusCode.NOT_FOUND
-          )
-        },
-        // 路由存在，无对应方法
-        methodNotAllowed: () => {
-          return new SysError(
-            ErrorMsg.METHOD_NOT_ALLOWED,
-            ErrorCode.ROUTER_NOT_FOUND,
-            StatusCode.METHOD_NOT_ALLOWED
-          )
-        }
-      })
-    )
+    app
+      .use(router.routes())
+      // controller 未传入 next，路由匹配默认不会调用 allowedMethods
+      .use(
+        router.allowedMethods({
+          throw: true,
+          // 不支持此 HTTP 方法
+          notImplemented: () => {
+            return new SysError(
+              ErrorMsg.ROUTER_NOT_FOUND,
+              ErrorCode.ROUTER_NOT_FOUND,
+              StatusCode.NOT_FOUND
+            )
+          },
+          // 路由存在，无对应方法
+          methodNotAllowed: () => {
+            return new SysError(
+              ErrorMsg.METHOD_NOT_ALLOWED,
+              ErrorCode.ROUTER_NOT_FOUND,
+              StatusCode.METHOD_NOT_ALLOWED
+            )
+          }
+        })
+      )
+  })
 }

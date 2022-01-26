@@ -1,7 +1,7 @@
 'use strict'
 
-const UserCtrl = require('../controller/user')
-const UserSchema = require('../schema/user')
+const UserCtrl = require('../../controller/api/user')
+const UserSchema = require('../../schema/user')
 
 module.exports = [
   {

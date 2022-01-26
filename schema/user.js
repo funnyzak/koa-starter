@@ -1,5 +1,6 @@
 'use strict'
 
+// document https://joi.dev/api/
 const Joi = require('joi')
 
 const _userNameJoi = Joi.string().alphanum().min(3).max(30).required()

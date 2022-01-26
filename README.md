@@ -11,6 +11,10 @@ Koa2 快速开始脚手架项目。
 
 1. 基于 KOA2 框架
 2. 数据库使用 MongoDB
+3. 集成 joi 路由验证
+4. 集成 koa-session
+5. eslint、prettier 代码规范
+6. ejs 模板引擎
 
 ## 目录
 

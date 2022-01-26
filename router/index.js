@@ -1,6 +1,7 @@
 'use strict'
 
 const fs = require('fs')
+const path = require('path')
 const Router = require('koa-router')
 
 const CheckParam = require('../middleware/check-param')
@@ -8,47 +9,55 @@ const logger = require('../lib/logger')
 const config = require('../config')
 const LogType = require('../common/log-type')
 
-const router = new Router({ prefix: config.app.urlPrefix })
-
-const addToRouter = (routers) => {
-  routers.forEach((item) => {
-    const { method } = item
+const addToRouter = (router, routes) => {
+  routes.forEach((route) => {
+    const { method } = route
 
     logger.info({
       type: LogType.INIT_ROUTER,
       payload: {
         method,
-        path: `${config.app.urlPrefix}${item.path}`
+        path: `${router.opts.prefix}${route.path}`
       }
     })
 
-    if (item.middleware) {
-      if (!Array.isArray(item.middleware)) {
-        item.middleware = [item.middleware]
+    if (route.middleware) {
+      if (!Array.isArray(route.middleware)) {
+        route.middleware = [route.middleware]
       }
 
       router[method](
-        item.path,
-        CheckParam(item.checkParam),
-        ...item.middleware,
-        item.controller
+        route.path,
+        CheckParam(route.checkParam),
+        ...route.middleware,
+        route.controller
       )
     } else {
-      router[method](item.path, CheckParam(item.checkParam), item.controller)
+      router[method](route.path, CheckParam(route.checkParam), route.controller)
     }
   })
 }
 
-// 路由初始化
-function mergeRouters() {
-  const files = fs.readdirSync(__dirname)
+// 路由合并
+function mergeRouters(router, apiDir) {
+  const files = fs.readdirSync(path.join(__dirname, apiDir))
   files.forEach((file) => {
-    if (file !== 'index.js') {
-      addToRouter(require(`./${file}`))
-    }
+    addToRouter(router, require(path.join(__dirname, apiDir, file)))
   })
 }
 
-mergeRouters()
+// api路由
+const apiRouter = new Router({
+  prefix: config.app.apiUrlPrefix,
+  sensitive: true
+})
 
-module.exports = router
+mergeRouters(apiRouter, './api')
+
+// 其他
+const generalRouter = new Router({
+  sensitive: true
+})
+mergeRouters(generalRouter, './general')
+
+module.exports = [apiRouter, generalRouter]

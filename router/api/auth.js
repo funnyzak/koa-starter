@@ -1,7 +1,7 @@
 'use strict'
 
-const AuthCtrl = require('../controller/auth')
-const session = require('../middleware/session')
+const AuthCtrl = require('../../controller/api/auth')
+const session = require('../../middleware/session')
 
 module.exports = [
   {

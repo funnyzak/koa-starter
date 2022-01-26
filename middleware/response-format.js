@@ -1,6 +1,7 @@
 'use strict'
 
 const logger = require('../lib/logger')
+const config = require('../config')
 
 const SysError = require('../common/sys-error')
 const ErrorCode = require('../common/error-code')
@@ -46,7 +47,7 @@ const parseError = (ctx, err) => {
     payload: ctx.reqParams
   })
 
-  ctx.status = StatusCode.BAD_REQUEST
+  ctx.status = ctx.status || StatusCode.BAD_REQUEST
   // 未知错误
   return {
     success: false,
@@ -80,8 +81,6 @@ module.exports = () => {
         message: null
       }
 
-      ctx.body = responseBody
-
       logger.info({
         type: LogType.RUN_INFO,
         msg: 'request2response info',
@@ -93,6 +92,10 @@ module.exports = () => {
         payload: ctx.reqParams,
         response: responseBody
       })
+
+      if (ctx.url.indexOf(config.app.apiUrlPrefix) >= 0) {
+        ctx.body = responseBody
+      }
     } catch (err) {
       ctx.body = parseError(ctx, err)
     }

@@ -4,9 +4,9 @@
 
 'use strict'
 
-const ErrorMsg = require('../common/error-msg')
-const ErrorCode = require('../common/error-code')
-const SysError = require('../common/sys-error')
+const ErrorMsg = require('../../common/error-msg')
+const ErrorCode = require('../../common/error-code')
+const SysError = require('../../common/sys-error')
 
 module.exports = {
   /**

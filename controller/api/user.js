@@ -1,6 +1,6 @@
 'use strict'
 
-const UserService = require('../service/user')
+const UserService = require('../../service/user')
 
 module.exports = {
   /**
