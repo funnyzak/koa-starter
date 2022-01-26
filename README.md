@@ -16,6 +16,7 @@ Koa2 快速开始脚手架项目。
 5. 集成 koa-session
 6. eslint、prettier 代码规范
 7. ejs 模板引擎
+8. 支持测试覆盖
 
 ## 目录
 
@@ -28,6 +29,7 @@ Koa2 快速开始脚手架项目。
     ├── lib                                    // 工具库
     ├── logs                                   // 日志文件夹
     ├── middleware                             // 中间件
+    ├── test                                   // 测试覆盖
     ├── models                                 // db model
     ├── public                                 // 静态资源文件夹
     ├── router                                 // 路由
@@ -49,6 +51,9 @@ npm run watch
 
 ## 生产启动
 npm start
+
+## 测试覆盖
+npm run cov
 ```
 
 ## 赞赏

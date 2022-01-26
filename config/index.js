@@ -9,7 +9,7 @@ const LogType = require('../common/log-type')
 let config = require('./config-default')
 
 // load 指定环境配置
-const env = process.env.NODE_ENV
+const env = process.env.NODE_ENV || 'development'
 
 if (env) {
   try {

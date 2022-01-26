@@ -77,4 +77,4 @@ config/config-*.js
 /test.js
 
 
-*.test.js
+*_test.js
