@@ -1,11 +1,15 @@
 # koa quick start
 
+[![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![action][ci-image]][ci-url]
 [![license][license-image]][repository-url]
 
+[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-quick-start/Node.js%20CI
+[ci-url]: https://github.com/funnyzak/koa-quick-start/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-quick-start.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/koa-quick-start
 
-Koa2 快速开始脚手架。
+基于 Koa2 的快速开始脚手架。
 
 ---
 
@@ -23,15 +27,16 @@ Koa2 快速开始脚手架。
 
 ## 特点
 
-1. 基于 KOA2 框架
+1. 基于 Koa2 的 Web 框架
 2. 集成 MongoDB 数据库
 3. 集成 MySQL 数据库
 4. 集成 Redis 数据库
-5. 集成 joi 路由验证
+5. 集成 JOI 路由验证
 6. 集成 koa-session
 7. eslint、prettier 代码规范
 8. ejs 模板引擎
-9. 支持测试覆盖
+9. 支持跨域、文件静态、多路由声明
+10. 支持测试覆盖
 
 ## 结构
 
@@ -77,6 +82,7 @@ npm run cov
 - [IoRedis](https://docs.redis.com/latest/rs/references/client_references/client_ioredis/)
 - [MongoDb](https://docs.mongodb.com/)
 - [sequelizejs](https://sequelize.org/master/manual/getting-started.html)
+- [Joi](https://joi.dev/api/)
 
 ## 赞赏
 
