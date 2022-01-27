@@ -9,9 +9,7 @@
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-quick-start.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/koa-quick-start
 
-基于 Koa2 的快速开始脚手架。
-
----
+基于 Koa2 构建的快速开始 Web 脚手架。
 
 ## 目录
 
