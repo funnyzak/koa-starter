@@ -59,11 +59,33 @@ const config = {
    * 数据库配置
    */
   db: {
+    // config for mongodb => https://docs.mongodb.com/drivers/node/current/fundamentals/connection/
     mongoDb: {
+      logging: process.env.NODE_ENV === 'development',
+      // uri: 'mongodb+srv://<clusterUrl>/?replicaSet=rs&writeConcern=majority', // mongodb 连接地址（优先）
       db: 'koa-quick-start',
-      uri:
-        'mongodb://adm:12345679@@127.0.0.1:27017/koa-quick-start' +
-        '?authSource=admin&maxPoolSize=50&w=majority&connectTimeoutMS=10000'
+      username: 'user',
+      password: 'password',
+      host: 'localhost',
+      port: 27017,
+      options: {
+        authSource: 'admin',
+        maxPoolSize: 50,
+        w: 'majority',
+        connectTimeoutMS: 10000
+      }
+    },
+    redis: {
+      host: '127.0.0.1',
+      port: 6380, // redis 端口
+      username: 'alice',
+      password: 'foobared',
+      db: 2,
+      tls: {
+        // key: fs.readFileSync('path_to_keyfile', (encoding = 'ascii')),
+        // cert: fs.readFileSync('path_to_certfile', (encoding = 'ascii')),
+        // ca: [fs.readFileSync('path_to_ca_certfile', (encoding = 'ascii'))]
+      }
     },
     mysql: {
       username: 'root',
