@@ -35,6 +35,19 @@ const parseError = (ctx, err) => {
       message: err.message
     }
   }
+
+  ctx.status = ctx.status || StatusCode.BAD_REQUEST
+  // 未知错误
+  const responseBody = {
+    success: false,
+    code: ErrorCode.UNKNOWN_ERROR,
+    data: null,
+    message:
+      process.env.NODE_ENV === 'development'
+        ? err.message
+        : ErrorMsg.UNKNOWN_ERROR
+  }
+
   logger.error({
     type: LogType.SERVER_ERROR,
     msg: err.message,
@@ -44,20 +57,11 @@ const parseError = (ctx, err) => {
       path: ctx.path,
       status: ctx.status
     },
-    payload: ctx.reqParams
+    payload: ctx.reqParams,
+    response: responseBody
   })
 
-  ctx.status = ctx.status || StatusCode.BAD_REQUEST
-  // 未知错误
-  return {
-    success: false,
-    code: ErrorCode.UNKNOWN_ERROR,
-    data: null,
-    message:
-      process.env.NODE_ENV === 'development'
-        ? err.message
-        : ErrorMsg.UNKNOWN_ERROR
-  }
+  return responseBody
 }
 
 module.exports = () => {

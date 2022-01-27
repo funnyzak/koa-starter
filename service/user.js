@@ -14,18 +14,18 @@ module.exports = {
    * @returns user
    */
   async getUser(userName) {
-    const user = await MySqlData.User.findOne({
-      where: {
-        userName
-      }
-    })
-    if (user) {
-      return user
+    try {
+      return await MySqlData.User.findOne({
+        where: {
+          userName
+        }
+      })
+    } catch (err) {
+      throw new SysError(
+        ErrorMsg.USER_NOT_FOUND,
+        ErrorCode.USER_NOT_FOUND,
+        StatusCode.BAD_REQUEST
+      )
     }
-    throw new SysError(
-      ErrorMsg.USER_NOT_FOUND,
-      ErrorCode.USER_NOT_FOUND,
-      StatusCode.BAD_REQUEST
-    )
   }
 }
