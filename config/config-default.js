@@ -67,8 +67,8 @@ const config = {
       logging: process.env.NODE_ENV === 'development',
       // uri: 'mongodb+srv://<clusterUrl>/?replicaSet=rs&writeConcern=majority', // mongodb 连接地址（优先）
       db: 'koa-quick-start',
-      username: 'user',
-      password: 'password',
+      // username: 'user',
+      // password: 'password',
       host: 'localhost',
       port: 27017,
       options: {
