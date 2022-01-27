@@ -1,4 +1,4 @@
-# koa quick start
+# koa2 quick start
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![action][ci-image]][ci-url]
@@ -13,7 +13,7 @@
 
 ## 目录
 
-- [koa quick start](#koa-quick-start)
+- [koa2 quick start](#koa2-quick-start)
   - [目录](#目录)
   - [特点](#特点)
   - [结构](#结构)

@@ -1,7 +1,7 @@
 {
-  "name": "koa-quick-start",
+  "name": "koa2-quick-start",
   "version": "1.0.0",
-  "description": "koa quick start project",
+  "description": "koa2 quick start project",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./index",
