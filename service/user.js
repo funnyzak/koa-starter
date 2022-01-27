@@ -4,8 +4,10 @@ const ErrorMsg = require('../common/error-msg')
 const ErrorCode = require('../common/error-code')
 const SysError = require('../common/sys-error')
 const StatusCode = require('../common/status-code')
+const config = require('../config')
 
-const MySqlData = require('../models/mysql')
+let MySqlData
+if (config.app.mysql) MySqlData = require('../models/mysql')
 
 module.exports = {
   /**
