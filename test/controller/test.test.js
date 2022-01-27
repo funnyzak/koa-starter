@@ -26,7 +26,7 @@ describe('controller/test.js', () => {
       const { body } = await request
         .get(`${config.app.apiUrlPrefix}/throw_undefined_error`)
         .set('Accept', 'application/json')
-      assert.deepEqual(body.code, ErrorCode.UNKNOWN_ERROR)
+      assert.equal(body.code, ErrorCode.UNKNOWN_ERROR)
     })
   })
 
@@ -38,7 +38,7 @@ describe('controller/test.js', () => {
         .get(`${config.app.apiUrlPrefix}/users/${userName}`)
         .set('Accept', 'application/json')
 
-      assert.deepEqual(body.code, ErrorCode.USER_NOT_FOUND)
+      assert.equal(body.code, ErrorCode.USER_NOT_FOUND)
     })
   })
 
@@ -48,7 +48,7 @@ describe('controller/test.js', () => {
         .get(`${config.app.apiUrlPrefix}/no_permission`)
         .set('Accept', 'application/json')
 
-      assert.deepEqual(body.code, ErrorCode.NEED_LOGIN)
+      assert.equal(body.code, ErrorCode.NEED_LOGIN)
     })
   })
 })
