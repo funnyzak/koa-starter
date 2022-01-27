@@ -54,9 +54,8 @@ Koa2 快速开始脚手架。
 
 ## 运行
 
-1. 创建 mongoDB 数据库，准备 OSS 连接密钥；
-2. **config**下，进行相应配置；
-3. 安装项目依赖，启动项目。
+1. **config**下，创建 **config-[name].js** 配置文件；
+2. 安装项目依赖，启动项目。
 
 ```bash
 npm install
