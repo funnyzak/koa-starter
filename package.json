@@ -18,10 +18,15 @@
     "url": "git+ssh://git@github.com/funnyzak/koa-quick-start.git"
   },
   "keywords": [
-    "aliyun",
-    "oss",
-    "upload",
-    "tranfer"
+    "nodejs",
+    "mysql",
+    "koa",
+    "mocha",
+    "mongodb",
+    "mysql",
+    "redis",
+    "koa2",
+    "test"
   ],
   "author": "Leon <silenceace@gmail.com>",
   "license": "ISC",
