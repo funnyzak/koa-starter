@@ -17,16 +17,14 @@ let mongoData, MySqlData
     mongoData = require('../models/mongo')
 
     // demo data
-    const fileObject = await FileObject()
     logger.info({
       msg: 'create mongo demo data.',
-      data: await fileObject.utils.upsert(
+      data: await FileObject.upsert(
         {
           md5: 'kehdkweisdsjsdie'
         },
         {
           name: 'hello world',
-          path: '/abc/1.jpg',
           md5: 'kehdkweisdsjsdie',
           size: 2048
         }
