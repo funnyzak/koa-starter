@@ -13,8 +13,11 @@ const config = {
       expiration: 600 // oss 文件对象有效期，单位（秒）
     },
     apiUrlPrefix: '/api/v1', // api url path
+
+    // 启用数据库
     mongodb: false,
-    mysql: false
+    mysql: false,
+    redis: false
   },
   // https://github.com/koajs/koa-body
   koaBody: {
@@ -76,16 +79,18 @@ const config = {
       }
     },
     redis: {
+      // logging: process.env.NODE_ENV === 'development',
+      // uri: 'redis://:authpassword@127.0.0.1:6380/4', // redis 连接地址（优先）
       host: '127.0.0.1',
       port: 6380, // redis 端口
-      username: 'alice',
+      // username: 'alice',
       password: 'foobared',
-      db: 2,
-      tls: {
-        // key: fs.readFileSync('path_to_keyfile', (encoding = 'ascii')),
-        // cert: fs.readFileSync('path_to_certfile', (encoding = 'ascii')),
-        // ca: [fs.readFileSync('path_to_ca_certfile', (encoding = 'ascii'))]
-      }
+      db: 2
+      // tls: {
+      //   key: fs.readFileSync('path_to_keyfile', (encoding = 'ascii')),
+      //   cert: fs.readFileSync('path_to_certfile', (encoding = 'ascii')),
+      //   ca: [fs.readFileSync('path_to_ca_certfile', (encoding = 'ascii'))]
+      // }
     },
     mysql: {
       username: 'root',

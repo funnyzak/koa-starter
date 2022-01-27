@@ -10,11 +10,11 @@ let aliyunOSSList = config.aliyun.oss.map((v) => {
   return new AliOSS(v)
 })
 
-let mongoData, MySqlData
+let MongoData, MySqlData, RedisData
 
 !(async () => {
   if (config.app.mongodb) {
-    mongoData = require('../models/mongo')
+    MongoData = require('../models/mongo')
 
     // demo data
     logger.info({
@@ -34,11 +34,15 @@ let mongoData, MySqlData
   if (config.app.mysql) {
     MySqlData = require('../models/mysql')
   }
+  if (config.app.redis) {
+    RedisData = require('../models/redis')
+  }
 })()
 
 module.exports.aliyun = {
   ossList: aliyunOSSList
 }
-module.exports.mongoData = mongoData
+module.exports.mongoData = MongoData
+module.exports.RedisData = RedisData
 module.exports.MySqlData = MySqlData
 module.exports.config = config
