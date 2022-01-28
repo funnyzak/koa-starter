@@ -84,7 +84,7 @@ npm run cov
 
 ## 赞赏
 
-![赞赏](https://raw.githubusercontent.com/funnyzak/tts-now/master/public/_docs/assets/img/coffee.png)
+![赞赏](https://raw.githubusercontent.com/funnyzak/funnyzak/master/public/assets/img/coffee.png)
 
 ## Author
 
