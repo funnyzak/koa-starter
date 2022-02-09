@@ -4,9 +4,8 @@ const fs = require('fs')
 const path = require('path')
 
 const _ = require('lodash')
-const { existsSync, mkdir } = require('fs')
-
 const logger = require('../lib/logger')
+const { createDirsSync } = require('../lib/utils')
 const LogType = require('../common/log-type')
 
 let config = require('./config-default')
@@ -33,15 +32,7 @@ if (env) {
   }
 }
 
-// 初始化上传文件夹
-if (!existsSync(config.app.upload.tmpDir)) {
-  mkdir(config.app.upload.tmpDir, { recursive: true }, (err) => {
-    if (err) {
-      logger.error(
-        `mkdir ${config.app.upload.tmpdir} fail. error: ${JSON.stringify(err)}`
-      )
-    }
-  })
-}
+// 上传文件夹创建
+createDirsSync([config.app.upload.tmpDir, config.app.upload.saveDir])
 
 module.exports = config

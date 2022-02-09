@@ -6,7 +6,12 @@ const config = {
     host: 'http://127.0.0.1:5000', // app主页地址
     port: '2058', // 服务启动监听端口
     upload: {
-      tmpDir: path.join(__dirname, '../public/upload/tmp') // 文件上传临时文件夹
+      // 文件上传临时文件夹
+      tmpDir: path.join(__dirname, '../public/upload/tmp'),
+      // 最终保存路径
+      saveDir: path.join(__dirname, '../public/upload'),
+      // 虚拟路径
+      virtualPath: '/upload'
     },
     fileObject: {
       objectPrefix: '/transfer',
