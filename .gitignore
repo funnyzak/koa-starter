@@ -78,3 +78,5 @@ config/config-*.js
 
 
 *_test.js
+
+/public/upload
