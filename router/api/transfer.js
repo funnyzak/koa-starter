@@ -9,5 +9,11 @@ module.exports = [
     path: '/transfer/local',
     controller: TransferCtrl.localUpload,
     middleware: bodyParse()
+  },
+  {
+    method: 'put',
+    path: '/transfer/oss',
+    controller: TransferCtrl.ossUpload,
+    middleware: bodyParse()
   }
 ]

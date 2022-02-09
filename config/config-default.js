@@ -11,7 +11,9 @@ const config = {
       // 最终保存路径
       saveDir: path.join(__dirname, '../public/upload'),
       // 虚拟路径
-      virtualPath: '/upload'
+      virtualPath: '/upload',
+      // 云存储路径前缀 开头和结尾不带/
+      cloudPathPrefix: 'transfer/v1'
     },
     fileObject: {
       objectPrefix: '/transfer',
