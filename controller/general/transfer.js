@@ -40,17 +40,30 @@ function saveRequestFiles(ctx) {
   )
 }
 
+/**
+ * 保存文件到OSS
+ * @param {*} ctx
+ * @returns
+ */
 function saveRequestFilesToOSS(ctx) {
   return Promise.all(
     parseRequestFiles(ctx).map(async (v) => {
-      const _key = `${config.app.upload.cloudPathPrefix}/${v4()}_${v.name}`
-      await aliyun.ossList[0].put(v.path, _key)
+      const _key = `${config.app.upload.cloudPathPrefix}/${dtime().format(
+        'YYYYMMDD'
+      )}/${v4().substring(0, 7)}_${v.name}`
+      await aliyun.oss.put(v.path, _key)
+      const _signatureUrl = await aliyun.oss.signatureUrl(_key, 3600, {
+        response: {
+          'content-type': v.type
+        }
+      })
       return {
         name: v.name,
         mime: v.type,
         hash: v.hash,
         size: v.size,
-        url: `${aliyun.ossList[0].option.domain}/${_key}`
+        // url: `${aliyun.oss.option.domain}/${_key}`,
+        signatureUrl: `${_signatureUrl}`
       }
     })
   )
