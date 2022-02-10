@@ -41,8 +41,8 @@ class Token {
             // 令牌
             token: null,
 
-            // 过期时间（秒）
-            expire: null,
+            // 过期时间（毫秒）
+            expire: new Date().getTime() + 3600 * 24 * 365 * 1000,
 
             // 所属APP
             app: TOKEN_TYPE.TRANSFER,
