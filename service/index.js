@@ -2,9 +2,6 @@
 
 const config = require('../config')
 const AliOSS = require('../lib/aliyun/oss')
-const FileObject = require('./file-object')
-const UserModel = require('./user')
-const logger = require('../lib/logger')
 
 let aliyunOSSList = config.aliyun.oss.map((v) => {
   return new AliOSS(v)
@@ -13,28 +10,11 @@ let aliyunOSSList = config.aliyun.oss.map((v) => {
 let MongoData, MySqlData, RedisData
 
 !(async () => {
-  MongoData = require('../models/mongo')
+  MongoData = await require('../models/mongo')
 
-  MySqlData = require('../models/mysql')
+  MySqlData = await require('../models/mysql')
 
-  RedisData = require('../models/redis')
-
-  if (MongoData) {
-    // demo data
-    logger.info({
-      msg: 'create mongo demo data.',
-      data: await FileObject.upsert(
-        {
-          hash: 'kehdkweisdsjsdie'
-        },
-        {
-          name: 'hello world',
-          hash: 'kehdkweisdsjsdie',
-          size: 2048
-        }
-      )
-    })
-  }
+  RedisData = await require('../models/redis')
 })()
 
 module.exports.aliyun = {
