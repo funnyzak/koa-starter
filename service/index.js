@@ -40,7 +40,8 @@ let MongoData, MySqlData, RedisData
 })()
 
 module.exports.aliyun = {
-  ossList: aliyunOSSList
+  ossList: aliyunOSSList,
+  oss: aliyunOSSList[0]
 }
 module.exports.mongoData = MongoData
 module.exports.RedisData = RedisData
