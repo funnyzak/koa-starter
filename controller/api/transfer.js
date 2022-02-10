@@ -118,7 +118,7 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
           const _doc = _.merge(_finfo, _file)
           return shouldSaveDB ? await FileObject.upsert(_doc) : _doc
         } catch (e) {
-          logger.error('error', e.message, e.stack)
+          logger.error({ stack: e.stack, message: e.message })
           return null
         }
       })

@@ -8,6 +8,7 @@ const { TOKEN_TYPE } = require('../../service/token')
 
 module.exports = [
   {
+    // demo: api/v1/transfer?signature=false&saveCloud=true&_token=helloworld&_app=transfer
     method: 'put',
     path: '/transfer',
     controller: TransferCtrl.transfer,
