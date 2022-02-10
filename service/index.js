@@ -7,6 +7,8 @@ let aliyunOSSList = config.aliyun.oss.map((v) => {
   return new AliOSS(v)
 })
 
+const TokenModel = require('./token')
+
 let MongoData, MySqlData, RedisData
 
 !(async () => {
@@ -15,6 +17,20 @@ let MongoData, MySqlData, RedisData
   MySqlData = await require('../models/mysql')
 
   RedisData = await require('../models/redis')
+
+  if (MongoData) {
+    // 创建示例数据
+    await TokenModel.upsert({
+      name: 'funnyzak',
+      token: 'helloworld',
+      app: 'transfer',
+      relationId: 1
+    })
+
+    await require('./file-object').upsert({
+      hash: 'hello world'
+    })
+  }
 })()
 
 module.exports.aliyun = {
