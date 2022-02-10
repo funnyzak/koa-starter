@@ -106,7 +106,7 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
             shouldSaveDB = true
           }
 
-          if (shouldSaveDB) {
+          if (shouldSaveDB && _finfo) {
             delete _finfo.createdAt
             delete _finfo.updatedAt
           }
