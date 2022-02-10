@@ -2,7 +2,6 @@
 
 const _ = require('lodash')
 const { v4 } = require('uuid')
-const config = require('../config')
 
 const MongoData = require('../models/mongo')
 
@@ -37,25 +36,25 @@ class FileObject {
             // 文件大小 Byte
             size: 0,
             // mime
-            contentType: null,
+            mime: null,
             // 后缀名
             suffix: null,
 
             // 文件 hash
             hash: null,
-            // 上传来源IP
-            ip: null,
             // 本地存储路径
             savePath: null,
 
+            // 上传来源IP
+            ip: null,
             // 封面
             cover: null,
             description: null,
             // 来源
             source: null,
             // 如果是图片 宽、高
-            width: null,
-            height: null,
+            // width: null,
+            // height: null,
             // 其他信息
             ext: null,
 

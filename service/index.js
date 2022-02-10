@@ -21,6 +21,7 @@ module.exports.aliyun = {
   ossList: aliyunOSSList,
   oss: aliyunOSSList[0]
 }
+
 module.exports.MongoData = MongoData
 module.exports.RedisData = RedisData
 module.exports.MySqlData = MySqlData
