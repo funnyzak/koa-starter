@@ -21,31 +21,49 @@ class FileObject {
   }
 
   /**
-   * 根据md5 创建或更新一个文件对象
+   * 根据hash 创建或更新一个文件对象
    * @returns 文件对象
    */
-  async upsert(one = { md5: 'default' }) {
+  async upsert(one = {}, where = {}) {
     return await this.colnSync(async (coln) => {
       return await coln.utils.upsert(
-        {
-          md5: one.md5
-        },
+        Object.keys(where).length > 0
+          ? where
+          : {
+              hash: one.hash
+            },
         _.merge(
           {
-            originName: v4(),
             name: v4(),
-            description: null,
+            // 文件大小 Byte
             size: 0,
+            // mime
             contentType: null,
+            // 后缀名
             suffix: null,
+
+            // 文件 hash
+            hash: null,
+            // 上传来源IP
+            ip: null,
+            // 本地存储路径
+            savePath: null,
+
+            // 封面
             cover: null,
+            description: null,
+            // 来源
             source: null,
+            // 如果是图片 宽、高
             width: null,
             height: null,
+            // 其他信息
             ext: null,
-            md5: null,
-            ip: null,
-            savePath: null
+
+            // 如果云存储商
+            cloud: null,
+            bucket: null,
+            objectKey: null
           },
           one
         )
@@ -55,3 +73,11 @@ class FileObject {
 }
 
 module.exports = new FileObject()
+
+/**
+ * 云存储服务商类型
+ */
+module.exports.CLOUD_STORAGE_VENOR = {
+  ALIYUN: 'oss',
+  TENCENT: 'cos'
+}
