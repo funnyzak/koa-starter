@@ -4,8 +4,7 @@ const _ = require('lodash')
 const { v4 } = require('uuid')
 const config = require('../config')
 
-let MongoData
-if (config.app.mongodb) MongoData = require('../models/mongo')
+const MongoData = require('../models/mongo')
 
 const collectionName = 'file-object'
 

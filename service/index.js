@@ -13,29 +13,27 @@ let aliyunOSSList = config.aliyun.oss.map((v) => {
 let MongoData, MySqlData, RedisData
 
 !(async () => {
-  if (config.app.mongodb) {
-    MongoData = require('../models/mongo')
+  MongoData = require('../models/mongo')
 
+  MySqlData = require('../models/mysql')
+
+  RedisData = require('../models/redis')
+
+  if (MongoData) {
     // demo data
     logger.info({
       msg: 'create mongo demo data.',
       data: await FileObject.upsert(
         {
-          md5: 'kehdkweisdsjsdie'
+          hash: 'kehdkweisdsjsdie'
         },
         {
           name: 'hello world',
-          md5: 'kehdkweisdsjsdie',
+          hash: 'kehdkweisdsjsdie',
           size: 2048
         }
       )
     })
-  }
-  if (config.app.mysql) {
-    MySqlData = require('../models/mysql')
-  }
-  if (config.app.redis) {
-    RedisData = require('../models/redis')
   }
 })()
 
@@ -43,7 +41,7 @@ module.exports.aliyun = {
   ossList: aliyunOSSList,
   oss: aliyunOSSList[0]
 }
-module.exports.mongoData = MongoData
+module.exports.MongoData = MongoData
 module.exports.RedisData = RedisData
 module.exports.MySqlData = MySqlData
 module.exports.config = config

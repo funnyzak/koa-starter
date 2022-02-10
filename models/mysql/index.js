@@ -1,9 +1,13 @@
 'use strict'
 
-const MySqlDbClient = require('../../lib/db/mysql')
 const config = require('../../config')
 
-const client = new MySqlDbClient(config.db.mysql, __dirname)
+let client
+
+if (config.app.mysql) {
+  const MySqlDbClient = require('../../lib/db/mysql')
+  const client = new MySqlDbClient(config.db.mysql, __dirname)
+}
 
 module.exports.client = client
-module.exports = client.instance
+module.exports = client ? client.instance : undefined
