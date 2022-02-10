@@ -16,8 +16,9 @@ const config = {
       cloudPathPrefix: 'transfer/v1',
       signatureExpires: 600 // oss 文件对象有效期，单位（秒）
     },
-    apiUrlPrefix: '/api/v1', // api url path
-
+    apiUrlPrefix: '/api/v1', // 主api 路径前缀
+    // 统一JSON格式返回的路由前缀
+    jsonResponseRoutePrefix: ['/api/v1', '/transfer'],
     // 启用数据库
     mongodb: false,
     mysql: false,
