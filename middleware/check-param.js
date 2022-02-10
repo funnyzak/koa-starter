@@ -27,7 +27,10 @@ module.exports = (checkParamsObj) => {
 
       for (const keyName of schemaKeys) {
         const { value, error } = checkParamsObj[keyName].validate(
-          reqParam[keyName]
+          reqParam[keyName],
+          {
+            allowUnknown: true
+          }
         )
 
         if (error) {
