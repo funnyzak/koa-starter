@@ -13,11 +13,8 @@ const config = {
       // 虚拟路径
       virtualPath: '/upload',
       // 云存储路径前缀 开头和结尾不带/
-      cloudPathPrefix: 'transfer/v1'
-    },
-    fileObject: {
-      objectPrefix: '/transfer',
-      expiration: 600 // oss 文件对象有效期，单位（秒）
+      cloudPathPrefix: 'transfer/v1',
+      signatureExpires: 600 // oss 文件对象有效期，单位（秒）
     },
     apiUrlPrefix: '/api/v1', // api url path
 
