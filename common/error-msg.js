@@ -10,6 +10,7 @@ module.exports = {
   METHOD_NOT_ALLOWED: '不支持此请求方法',
   DB_ERROR: '数据库操作失败',
   NO_REQUEST_FILES: '没有上传文件',
+  INVALID_TOKEN: '无效的令牌',
 
   NEED_LOGIN: '需要登录',
   USER_NOT_FOUND: '用户不存在'
