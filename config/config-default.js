@@ -10,11 +10,18 @@ const config = {
       tmpDir: path.join(__dirname, '../public/upload/tmp'),
       // 最终保存路径
       saveDir: path.join(__dirname, '../public/upload'),
+
       // 虚拟路径
       virtualPath: 'http://localhost:2058/upload',
+
       // 云存储路径前缀 开头和结尾不带/
       cloudPathPrefix: 'transfer/static',
-      signatureExpires: 600 // oss 文件对象有效期，单位（秒）
+      signatureExpires: 600, // oss 文件对象有效期，单位（秒）
+
+      limit: {
+        //允许上传的文件类型
+        contentType: ['image/jpeg', 'image/png', 'image/jpg']
+      }
     },
     apiUrlPrefix: '/api/v1', // 主api 路径前缀
     // 统一JSON格式返回的路由前缀
