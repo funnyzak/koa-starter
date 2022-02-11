@@ -1,7 +1,5 @@
 'use strict'
 
-const Joi = require('joi')
-
 const logger = require('../lib/logger')
 
 const SysError = require('../common/sys-error')

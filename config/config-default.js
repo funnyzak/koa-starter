@@ -11,9 +11,9 @@ const config = {
       // 最终保存路径
       saveDir: path.join(__dirname, '../public/upload'),
       // 虚拟路径
-      virtualPath: '/upload',
+      virtualPath: 'http://localhost:2058/upload',
       // 云存储路径前缀 开头和结尾不带/
-      cloudPathPrefix: 'transfer/v1',
+      cloudPathPrefix: 'transfer/2022',
       signatureExpires: 600 // oss 文件对象有效期，单位（秒）
     },
     apiUrlPrefix: '/api/v1', // 主api 路径前缀

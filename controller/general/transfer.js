@@ -67,11 +67,15 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
           let _finfo = _finfo_list.find((v) => v.hash === _file.hash)
           let shouldSaveDB = false
 
-          const _day = dtime().format('YYYYMMDD')
+          const _path_prefix =
+            (ctx.token && ctx.token.app ? `${ctx.token.app}/` : '') +
+            `${dtime().format('YYYYMMDD')}`
+
           const _saveName = `${new Date().getTime()}_${_file.name}`
+
           const _savePath = path.join(
             config.app.upload.saveDir,
-            _day,
+            _path_prefix,
             _saveName
           )
 
@@ -82,10 +86,12 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
               path.join(config.app.upload.saveDir, _finfo.savePath)
             )
           ) {
-            await createDirsSync(path.join(config.app.upload.saveDir, _day))
+            await createDirsSync(
+              path.join(config.app.upload.saveDir, _path_prefix)
+            )
             await fs.copyFileSync(_file.tmpPath, _savePath)
 
-            _file.savePath = `/${_day}/${_saveName}`
+            _file.savePath = `/${_path_prefix}/${_saveName}`
             _file.ip = ctx.ip
 
             shouldSaveDB = true
@@ -95,9 +101,9 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
             (!_finfo || (!_finfo.cloud && _finfo.cloud === null)) &&
             saveCloud
           ) {
-            const _key = `${config.app.upload.cloudPathPrefix}/${dtime().format(
-              'YYYYMMDD'
-            )}/${v4().substring(0, 7)}_${_file.name}`
+            const _key = `${
+              config.app.upload.cloudPathPrefix
+            }/${_path_prefix}/${v4().substring(0, 7)}_${_file.name}`
             await aliyun.oss.put(_file.tmpPath, _key)
             _file.cloud = CLOUD_STORAGE_VENOR.ALIYUN
             _file.bucket = aliyun.oss.option.bucket
@@ -162,6 +168,13 @@ function signatureFileObjects(fileObjects) {
   )
 }
 
+function setFileObjectsLocalUrl(fileObjects) {
+  return (fileObjects || []).map((v) => {
+    v.url = `${config.app.upload.virtualPath}${v.savePath}`
+    return v
+  })
+}
+
 module.exports = {
   /**
    * localfile upload
@@ -174,7 +187,9 @@ module.exports = {
     }
     // console.log(ctx.request.body)
 
-    const fileObjects = await saveRequestFiles(ctx, ctx.query.cloud)
+    const fileObjects = setFileObjectsLocalUrl(
+      await saveRequestFiles(ctx, ctx.query.cloud)
+    )
     ctx.body = ctx.query.signature
       ? await signatureFileObjects(fileObjects)
       : fileObjects
