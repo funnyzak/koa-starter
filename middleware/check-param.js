@@ -20,7 +20,7 @@ module.exports = (checkParamsObj) => {
 
     ctx.reqParams = reqParam
 
-    if (checkParamsObj) {
+    if (checkParamsObj && checkParamsObj !== null) {
       const schemaKeys = Object.getOwnPropertyNames(checkParamsObj)
 
       for (const keyName of schemaKeys) {

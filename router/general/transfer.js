@@ -12,7 +12,9 @@ module.exports = [
     method: 'put',
     path: '/transfer',
     controller: TransferCtrl.transfer,
-    checkParam: checkToken,
     middleware: [TokenMdw({ app: TOKEN_TYPE.TRANSFER }), bodyParse()]
   }
-]
+].map((router) => {
+  router.checkParam ||= checkToken
+  return router
+})

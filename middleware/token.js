@@ -30,7 +30,7 @@ module.exports = (options) => {
 
     if (!_token || !_app) {
       throw new SysError(
-        ErrorMsg.INVALID_PARAM,
+        ErrorMsg.MISSING_PARAM,
         ErrorCode.INVALID_PARAM,
         StatusCode.BAD_REQUEST
       )
