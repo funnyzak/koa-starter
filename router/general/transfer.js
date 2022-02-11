@@ -38,6 +38,15 @@ module.exports = [
         mimeType: config.app.upload.limit.mimeType
       })
     ]
+  },
+  {
+    method: 'put',
+    path: '/transfer2',
+    controller: TransferCtrl.transfer2,
+    middleware: [
+      // token验证
+      TokenMdw({ app: TOKEN_TYPE.TRANSFER })
+    ]
   }
 ].map((router) => {
   // router.checkParam ||= checkToken

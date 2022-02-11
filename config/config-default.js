@@ -21,7 +21,16 @@ const config = {
       limit: {
         //允许上传的文件类型 https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types
         // 空集合则不限制
-        mimeType: ['text', 'audio', 'video', 'application'],
+        mimeType: [
+          'image/jpeg',
+          'image/jpg',
+          'image/bmp',
+          'image/png',
+          'image/gif',
+          'applicaiton/word',
+          'application/vnd.ms-excel',
+          'application/pdf'
+        ],
         maxSize: 10 * 1024 * 1024 // 10M
       }
     },
