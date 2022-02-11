@@ -13,7 +13,7 @@ const config = {
       // 虚拟路径
       virtualPath: 'http://localhost:2058/upload',
       // 云存储路径前缀 开头和结尾不带/
-      cloudPathPrefix: 'transfer/2022',
+      cloudPathPrefix: 'transfer/static',
       signatureExpires: 600 // oss 文件对象有效期，单位（秒）
     },
     apiUrlPrefix: '/api/v1', // 主api 路径前缀

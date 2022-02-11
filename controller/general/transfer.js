@@ -46,11 +46,11 @@ function formatReqFile(ctx) {
 /**
  * 保存文件到本地、云存储和DB
  * @param {*} ctx
- * @param {*} saveCloud
- * @param {*} forceDB
  * @returns
  */
-function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
+function saveRequestFiles(ctx, opts = {}) {
+  const { cloud: saveCloud, forceDB, savePrefix } = opts
+
   return new Promise(async (resolve, reject) => {
     let _files = await formatReqFile(ctx)
 
@@ -71,6 +71,9 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
 
           const _path_prefix =
             (ctx.token && ctx.token.app ? `${ctx.token.app}/` : '') +
+            (savePrefix && savePrefix.trim() !== ''
+              ? `${savePrefix.trim()}/`
+              : '') +
             `${dtime().format('YYYYMMDD')}`
 
           const _saveName = `${new Date().getTime()}_${_file.name}`
@@ -211,7 +214,10 @@ module.exports = {
     }
     // console.log(ctx.request.body)
 
-    let fileObjects = await saveRequestFiles(ctx, ctx.query.cloud)
+    let fileObjects = await saveRequestFiles(ctx, {
+      cloud: ctx.query.cloud,
+      savePrefix: ctx.query.prefix ?? ''
+    })
 
     fileObjects = ctx.query.signature
       ? await signatureFileObjects(fileObjects)
