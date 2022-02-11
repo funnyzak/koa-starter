@@ -3,12 +3,16 @@
 // document https://joi.dev/api/
 const Joi = require('joi')
 
-const _tokenJoi = Joi.string().min(3).max(32).required()
+const _tokenJoi = Joi.string().min(3).max(32)
 
 const checkToken = {
+  headers: Joi.object({
+    'x-token': [_tokenJoi],
+    'x-app-id': Joi.string().min(1)
+  }),
   query: Joi.object({
-    _token: [_tokenJoi],
-    _app: Joi.string().min(1).required()
+    'x-token': [_tokenJoi],
+    'x-app-id': Joi.string().min(1)
   })
 }
 

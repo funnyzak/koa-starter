@@ -174,7 +174,7 @@ module.exports = {
     }
     // console.log(ctx.request.body)
 
-    const fileObjects = await saveRequestFiles(ctx, ctx.query.saveCloud)
+    const fileObjects = await saveRequestFiles(ctx, ctx.query.cloud)
     ctx.body = ctx.query.signature
       ? await signatureFileObjects(fileObjects)
       : fileObjects

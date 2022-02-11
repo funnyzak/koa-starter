@@ -20,14 +20,17 @@ module.exports = (options) => {
   const app_name = options && options.app
 
   return async (ctx, next) => {
-    const _token = ctx.query._token,
-      _app = ctx.query._app
+    // 从header中 x-token 获取 token， x-app-id 中获取APP标识
+    const token_prop_name = 'x-token',
+      app_prop_name = 'x-app-id',
+      token_expires_prop_name = 'x-token-expires'
+
+    const _token = ctx.headers[token_prop_name] || ctx.query[token_prop_name],
+      _app = ctx.headers[app_prop_name] || ctx.query[app_prop_name]
 
     if (!_token || !_app) {
       throw new SysError(
-        process.env.NODE_ENV === 'development'
-          ? error.message
-          : ErrorMsg.INVALID_PARAM,
+        ErrorMsg.INVALID_PARAM,
         ErrorCode.INVALID_PARAM,
         StatusCode.BAD_REQUEST
       )
@@ -51,8 +54,8 @@ module.exports = (options) => {
       )
     }
 
-    ctx.set('X-Token-Expire', token_info.expire)
-    ctx.set('X-Token-APP', app_name)
+    ctx.set(token_expires_prop_name.toUpperCase(), token_info.expire)
+    ctx.set(app_prop_name.toUpperCase(), app_name)
 
     logger.info({
       type: LogType.RUN_INFO,
