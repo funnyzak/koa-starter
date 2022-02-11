@@ -21,7 +21,7 @@ const { CLOUD_STORAGE_VENOR } = require('../../service/file-object')
 const logger = require('../../lib/logger')
 
 /**
- * 保存请求的文件到本地
+ * 格式化请求的文件列表
  * @param {*} ctx
  * @returns
  */

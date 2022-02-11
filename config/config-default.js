@@ -3,8 +3,8 @@ const path = require('path')
 const config = {
   app: {
     name: 'koa quick start',
-    host: 'http://127.0.0.1:5000', // app主页地址
-    port: '2058', // 服务启动监听端口
+    host: 'http://127.0.0.1:2058', // app主页地址
+    port: 2058, // 服务启动监听端口
     upload: {
       // 文件上传临时文件夹
       tmpDir: path.join(__dirname, '../public/upload/tmp'),
@@ -19,8 +19,10 @@ const config = {
       signatureExpires: 600, // oss 文件对象有效期，单位（秒）
 
       limit: {
-        //允许上传的文件类型
-        contentType: ['image/jpeg', 'image/png', 'image/jpg']
+        //允许上传的文件类型 https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+        // 空集合则不限制
+        mimeType: ['text', 'audio', 'video', 'application'],
+        maxSize: 10 * 1024 * 1024 // 10M
       }
     },
     apiUrlPrefix: '/api/v1', // 主api 路径前缀
