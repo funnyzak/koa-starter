@@ -11,6 +11,7 @@ const { koaBodyParse: bodyParse } = require('../../lib/utils')
 const { checkToken } = require('../../schema/token')
 const { transferPut } = require('../../schema/transfer')
 const TokenMdw = require('../../middleware/token')
+const UploadMdw = require('../../middleware/upload')
 const { TOKEN_TYPE } = require('../../service/token')
 const _ = require('lodash')
 const config = require('../../config')
@@ -45,7 +46,9 @@ module.exports = [
     controller: TransferCtrl.transfer2,
     middleware: [
       // token验证
-      TokenMdw({ app: TOKEN_TYPE.TRANSFER })
+      TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
+      // 上传
+      UploadMdw(config.app.upload)
     ]
   }
 ].map((router) => {

@@ -19,9 +19,6 @@ const { aliyun } = require('../../service')
 const FileObject = require('../../service/file-object')
 const { CLOUD_STORAGE_VENOR } = require('../../service/file-object')
 const logger = require('../../lib/logger')
-const FileUpload = require('../../lib/fileupload')
-
-const upload = new FileUpload(config.app.upload)
 
 /**
  * 格式化请求的文件列表
@@ -237,18 +234,8 @@ module.exports = {
 
     ctx.body = fileObjectsResponseFormat(fileObjects)
   },
-  transfer2: async (ctx) => {
-    let fileObjects = await upload.process(ctx.req, {
-      keepOriginName: false,
-      removeTmp: true,
-      isSaveDir: true,
-      savePrefix:
-        (ctx.token && ctx.token.app ? `${ctx.token.app}/` : '') +
-        (ctx.query.prefix && ctx.query.prefix.trim() !== ''
-          ? `${ctx.query.prefix.trim()}`
-          : '')
-    })
 
-    ctx.body = fileObjects
+  transfer2: async (ctx) => {
+    ctx.body = ctx.uploadFiles
   }
 }
