@@ -6,7 +6,7 @@ module.exports = {
    */
   indexView: async (ctx) => {
     await ctx.render('index', {
-      message: 'hello, 2022!'
+      message: `Hello, ${new Date().getFullYear()}!`
     })
   },
   noFoundView: async (ctx) => {
