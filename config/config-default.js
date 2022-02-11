@@ -31,7 +31,10 @@ const config = {
           'application/vnd.ms-excel',
           'application/pdf'
         ],
-        maxSize: 10 * 1024 * 1024 // 10M
+        // limit the amount of memory all fields together (except files) can allocate in bytes (单次最大请求文件总容量)
+        maxFieldsSize: 1000 * 1024 * 1024, // 1G
+        // limit the size of uploaded file (单个文件可上传最大大小)
+        maxFileSize: 100 * 1024 * 1024 // 100M
       }
     },
     apiUrlPrefix: '/api/v1', // 主api 路径前缀

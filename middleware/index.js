@@ -1,3 +1,12 @@
+/**
+ * index.js
+ * Copyright(c) 2022
+ *
+ * @Author  leon (silenceace@gmail.com)
+ */
+
+'use strict'
+
 const path = require('path')
 const favicon = require('koa-favicon')
 const serve = require('koa-static')
