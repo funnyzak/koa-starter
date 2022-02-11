@@ -63,6 +63,8 @@ module.exports = (options) => {
       info: token_info
     })
 
+    ctx.token = token_info
+
     await next()
   }
 }
