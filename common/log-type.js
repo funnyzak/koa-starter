@@ -3,6 +3,7 @@
 module.exports = {
   INIT: 'Server Init',
   INIT_ROUTER: 'Server Init Router',
+  CONTROLLER_INFO: 'Controller Info',
   CONFIG_ERROR: 'Config Error',
   PARAM_ERROR: 'Param Error',
   REQUEST_TIME: 'Request Time',

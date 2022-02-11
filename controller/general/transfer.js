@@ -9,6 +9,8 @@ const { v4 } = require('uuid')
 const config = require('../../config')
 const StatusCode = require('../../common/status-code')
 const ErrorMsg = require('../../common/error-msg')
+const LogType = require('../../common/log-type')
+
 const ErrorCode = require('../../common/error-code')
 const SysError = require('../../common/sys-error')
 const { parseRequestFiles, createDirsSync } = require('../../lib/utils')
@@ -142,13 +144,14 @@ function saveRequestFiles(ctx, saveCloud = true, forceDB = false) {
 function signatureFileObjects(fileObjects) {
   return Promise.all(
     fileObjects.map(async (v) => {
-      if (!v.objectKey || v.objectKey === null) return v
-
-      const oss = aliyun.ossList.find(
-        (_oss) =>
-          _oss.option.bucket === v.bucket &&
-          v.cloud === CLOUD_STORAGE_VENOR.ALIYUN
+      if (
+        !v.objectKey ||
+        v.objectKey === null ||
+        v.cloud !== CLOUD_STORAGE_VENOR.ALIYUN
       )
+        return v
+
+      const oss = aliyun.ossPick(v.bucket)
       if (!oss) return v
 
       const signatureUrl = await oss.signatureUrl(
@@ -168,10 +171,31 @@ function signatureFileObjects(fileObjects) {
   )
 }
 
-function setFileObjectsLocalUrl(fileObjects) {
+function fileObjectsResponseFormat(fileObjects) {
   return (fileObjects || []).map((v) => {
     v.url = `${config.app.upload.virtualPath}${v.savePath}`
-    return v
+
+    if (
+      v.bucket &&
+      v.cloud === CLOUD_STORAGE_VENOR.ALIYUN &&
+      aliyun.ossPick(v.bucket)
+    ) {
+      v.cloudUrl = `${aliyun.ossPick(v.bucket).option.domain}/${v.objectKey}`
+    }
+
+    let retV = {}
+    ;[
+      'hash',
+      'cover',
+      'mime',
+      'name',
+      'size',
+      'suffix',
+      'signatureUrl',
+      'url',
+      'cloudUrl'
+    ].forEach((name) => (retV[name] = v[name]))
+    return retV
   })
 }
 
@@ -187,11 +211,18 @@ module.exports = {
     }
     // console.log(ctx.request.body)
 
-    const fileObjects = setFileObjectsLocalUrl(
-      await saveRequestFiles(ctx, ctx.query.cloud)
-    )
-    ctx.body = ctx.query.signature
+    let fileObjects = await saveRequestFiles(ctx, ctx.query.cloud)
+
+    fileObjects = ctx.query.signature
       ? await signatureFileObjects(fileObjects)
       : fileObjects
+
+    logger.info({
+      type: LogType.CONTROLLER_INFO,
+      action: 'transfer files',
+      data: fileObjects
+    })
+
+    ctx.body = fileObjectsResponseFormat(fileObjects)
   }
 }
