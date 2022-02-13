@@ -1,11 +1,6 @@
 'use strict'
 
-const fs = require('fs')
-const path = require('path')
 const _ = require('lodash')
-const dtime = require('time-formater')
-const { v4 } = require('uuid')
-
 const config = require('../../config')
 const ErrorMsg = require('../../common/error-msg')
 const LogType = require('../../common/log-type')
@@ -132,11 +127,6 @@ const checkRequestFiles = (ctx) => {
 }
 
 module.exports = {
-  /**
-   * localfile upload
-   *
-   * @param ctx
-   */
   transfer: async (ctx) => {
     checkRequestFiles(ctx)
 
