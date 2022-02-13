@@ -1,7 +1,6 @@
 'use strict'
 
 const TransferCtrl = require('../../controller/general/transfer')
-const { koaBodyParse: bodyParse } = require('../../lib/utils')
 const { checkToken } = require('../../schema/token')
 const { transferPut } = require('../../schema/transfer')
 const TokenMdw = require('../../middleware/token')
@@ -25,12 +24,8 @@ module.exports = [
     middleware: [
       // token验证
       TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
-      // 二进制流
-      bodyParse({
-        maxSize: config.app.upload.limit.maxSize,
-        uploadDir: config.app.upload.tmpDir,
-        mimeType: config.app.upload.limit.mimeType
-      })
+      // 上传
+      UploadMdw(config.app.upload)
     ]
   },
   {

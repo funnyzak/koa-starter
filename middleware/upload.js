@@ -7,7 +7,7 @@ module.exports = (options) => {
   options = _.merge(
     {
       keepOriginName: false,
-      removeTmp: true,
+      removeTmpFile: true,
       isSaveDir: true
     },
     options
@@ -15,7 +15,7 @@ module.exports = (options) => {
   const upload = new FileUpload(options)
 
   return async (ctx, next) => {
-    ctx.uploadFiles = await upload.process(ctx.req, {
+    ctx.requestFiles = await upload.process(ctx.req, {
       ...options,
       savePrefix:
         (ctx.token && ctx.token.app ? `${ctx.token.app}/` : '') +

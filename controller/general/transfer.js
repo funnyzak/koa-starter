@@ -12,7 +12,6 @@ const LogType = require('../../common/log-type')
 
 const ErrorCode = require('../../common/error-code')
 const SysError = require('../../common/sys-error')
-const { parseRequestFiles, createDirsSync } = require('../../lib/utils')
 const { aliyun } = require('../../service')
 
 const FileObject = require('../../service/file-object')
@@ -20,91 +19,63 @@ const { CLOUD_STORAGE_VENOR } = require('../../service/file-object')
 const logger = require('../../lib/logger')
 
 /**
- * 格式化请求的文件列表
- * @param {*} ctx
- * @returns
- */
-function formatReqFile(ctx) {
-  return Promise.all(
-    parseRequestFiles(ctx).map(async (v) => {
-      return {
-        name: v.name,
-        size: v.size,
-        hash: v.hash,
-        mime: v.type,
-        suffix: v.name.split('.').length > 1 ? v.name.split('.')[v.name.split('.').length - 1] : null,
-        tmpPath: v.path
-      }
-    })
-  )
-}
-
-/**
- * 保存文件到本地、云存储和DB
+ * 云存储和DB
  * @param {*} ctx
  * @returns
  */
 function saveRequestFiles(ctx, opts = {}) {
-  const { cloud: saveCloud, forceDB, savePrefix } = opts
+  const { cloud: saveCloud, forceDB } = opts
+  let requestFiles = ctx.requestFiles.success
 
   return new Promise(async (resolve, reject) => {
-    let _files = await formatReqFile(ctx)
-
     const _finfo_cursor = await FileObject.colnSync(async (coln) => {
-      return await coln.utils.find({ hash: { $in: _files.map((v) => v.hash) } })
+      return await coln.utils.find({ hash: { $in: requestFiles.map((v) => v.hash) } })
     })
-    let _finfo_list = []
+    let finfo_list = []
 
     await _finfo_cursor.forEach((v) => {
-      _finfo_list.push(v)
+      finfo_list.push(v)
     })
 
-    _files = await Promise.all(
-      _files.map(async (_file) => {
+    requestFiles = await Promise.all(
+      requestFiles.map(async (_file) => {
         try {
-          let _finfo = _finfo_list.find((v) => v.hash === _file.hash)
+          let _finfo = finfo_list.find((v) => v.hash === _file.hash)
           let shouldSaveDB = false
 
-          const _path_prefix =
-            (ctx.token && ctx.token.app ? `${ctx.token.app}/` : '') +
-            (savePrefix && savePrefix.trim() !== '' ? `${savePrefix.trim()}/` : '') +
-            `${dtime().format('YYYYMMDD')}`
+          let new_finfo = {
+            name: _file.originInfo.name,
+            size: _file.size,
+            mime: _file.type,
+            suffix: _file.suffix,
+            hash: _file.hash,
+            savePath: _file.shortPath,
+            ip: ctx.ip
+          }
 
-          const _saveName = `${new Date().getTime()}_${_file.name}`
+          if (_finfo) {
+            new_finfo = _.merge(_finfo, new_finfo)
 
-          const _savePath = path.join(config.app.upload.saveDir, _path_prefix, _saveName)
+            delete new_finfo.createdAt
+            delete new_finfo.updatedAt
+          }
 
-          if (!_finfo || forceDB || !fs.existsSync(path.join(config.app.upload.saveDir, _finfo.savePath))) {
-            await createDirsSync(path.join(config.app.upload.saveDir, _path_prefix))
-            await fs.copyFileSync(_file.tmpPath, _savePath)
-
-            _file.savePath = `/${_path_prefix}/${_saveName}`
-            _file.ip = ctx.ip
-
+          if (forceDB) {
             shouldSaveDB = true
           }
 
           if ((!_finfo || (!_finfo.cloud && _finfo.cloud === null)) && saveCloud) {
-            const _key = `${config.app.upload.cloudPathPrefix}/${_path_prefix}/${v4().substring(0, 7)}_${_file.name}`
-            await aliyun.oss.put(_file.tmpPath, _key)
-            _file.cloud = CLOUD_STORAGE_VENOR.ALIYUN
-            _file.bucket = aliyun.oss.option.bucket
-            _file.objectKey = _key
+            const _key = `${config.app.upload.cloudPathPrefix}/${_file.shortPath}`
+            await aliyun.oss.put(_file.path, _key)
+            new_finfo.cloud = CLOUD_STORAGE_VENOR.ALIYUN
+            new_finfo.bucket = aliyun.oss.option.bucket
+            new_finfo.objectKey = _key
 
             shouldSaveDB = true
           }
-
-          if (shouldSaveDB && _finfo) {
-            delete _finfo.createdAt
-            delete _finfo.updatedAt
-          }
-
-          // 删除临时文件
-          fs.rmSync(_file.tmpPath)
-          delete _file.tmpPath
-
-          const _doc = _.merge(_finfo, _file)
-          return shouldSaveDB ? await FileObject.upsert(_doc) : _doc
+          new_finfo = shouldSaveDB ? await FileObject.upsert(new_finfo) : new_finfo
+          new_finfo.url = _file.url
+          return new_finfo
         } catch (e) {
           logger.error({ stack: e.stack, message: e.message })
           return null
@@ -112,7 +83,7 @@ function saveRequestFiles(ctx, opts = {}) {
       })
     )
 
-    resolve(_files.filter((v) => v !== null))
+    resolve(requestFiles.filter((v) => v !== null))
   })
 }
 
@@ -144,8 +115,6 @@ function signatureFileObjects(fileObjects) {
 
 function fileObjectsResponseFormat(fileObjects) {
   return (fileObjects || []).map((v) => {
-    v.url = `${config.app.upload.virtualPath}${v.savePath}`
-
     if (v.bucket && v.cloud === CLOUD_STORAGE_VENOR.ALIYUN && aliyun.ossPick(v.bucket)) {
       v.cloudUrl = `${aliyun.ossPick(v.bucket).option.domain}/${v.objectKey}`
     }
@@ -157,8 +126,8 @@ function fileObjectsResponseFormat(fileObjects) {
 }
 
 const checkRequestFiles = (ctx) => {
-  if (!ctx.request.files) {
-    throw new SysError(ErrorMsg.NO_REQUEST_FILES, ErrorCode.INVALID_PARAM)
+  if (!ctx.requestFiles || (ctx.requestFiles.fail.length > 0 && ctx.requestFiles.success.length === 0)) {
+    throw new SysError(ErrorMsg.REQUEST_FILES, ErrorCode.INVALID_PARAM)
   }
 }
 
@@ -172,8 +141,7 @@ module.exports = {
     checkRequestFiles(ctx)
 
     let fileObjects = await saveRequestFiles(ctx, {
-      cloud: ctx.query.cloud,
-      savePrefix: ctx.query.prefix ?? ''
+      cloud: ctx.query.cloud
     })
 
     fileObjects = ctx.query.signature ? await signatureFileObjects(fileObjects) : fileObjects
@@ -188,6 +156,8 @@ module.exports = {
   },
 
   transfer2: async (ctx) => {
-    ctx.body = ctx.uploadFiles
+    checkRequestFiles(ctx)
+
+    ctx.body = ctx.requestFiles
   }
 }
