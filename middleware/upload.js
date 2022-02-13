@@ -1,7 +1,7 @@
 'use strict'
 
 const _ = require('lodash')
-const FileUpload = require('../lib/reqfile')
+const FileUpload = require('../lib/reqfiles')
 
 module.exports = (options) => {
   options = _.merge(
