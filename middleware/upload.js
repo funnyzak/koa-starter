@@ -1,7 +1,7 @@
 'use strict'
 
 const _ = require('lodash')
-const FileUpload = require('../lib/fileupload')
+const FileUpload = require('../lib/reqfile')
 
 module.exports = (options) => {
   options = _.merge(
@@ -19,9 +19,7 @@ module.exports = (options) => {
       ...options,
       savePrefix:
         (ctx.token && ctx.token.app ? `${ctx.token.app}/` : '') +
-        (ctx.query.prefix && ctx.query.prefix.trim() !== ''
-          ? `${ctx.query.prefix.trim()}`
-          : '')
+        (ctx.query.prefix && ctx.query.prefix.trim() !== '' ? `${ctx.query.prefix.trim()}` : '')
     })
 
     await next()

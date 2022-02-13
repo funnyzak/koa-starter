@@ -52,7 +52,6 @@ module.exports = [
     ]
   }
 ].map((router) => {
-  // router.checkParam ||= checkToken
   router.checkParam = _.merge(checkToken, router.checkParam)
   return router
 })
