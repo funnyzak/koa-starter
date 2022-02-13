@@ -1,11 +1,5 @@
 'use strict'
 
-const LogType = require('../../common/log-type')
-const SysError = require('../../common/sys-error')
-const ErrorCode = require('../../common/error-code')
-const ErrorMsg = require('../../common/error-msg')
-const StatusCode = require('../../common/status-code')
-
 const TransferCtrl = require('../../controller/general/transfer')
 const { koaBodyParse: bodyParse } = require('../../lib/utils')
 const { checkToken } = require('../../schema/token')
@@ -15,7 +9,6 @@ const UploadMdw = require('../../middleware/upload')
 const { TOKEN_TYPE } = require('../../service/token')
 const _ = require('lodash')
 const config = require('../../config')
-const logger = require('../../lib/logger')
 
 module.exports = [
   {
