@@ -32,7 +32,7 @@ services:
       - ./ssh:/root/.ssh # pull code ssh key
       - ./static:/public # static folder
       - ./logs:/logs # logs
-      - ./conf/config-production.js:app/code/config/config-production.js # production config
+      - ./conf/config-production.js:/app/code/config/config-production.js # production config
     ports:
       - 5006:9000 # hook
       - 5007:80 # app
