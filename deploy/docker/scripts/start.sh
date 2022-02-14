@@ -22,4 +22,4 @@ sleep 2
 
 # start app
 echo 'start server..'
-nohup node $NODE_ENPOINT_SCRIPT  &
+nohup node $NODE_ENPOINT_SCRIPT  NODE_ENV=$NODE_ENV Port=$Port &

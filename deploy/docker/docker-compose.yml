@@ -20,7 +20,7 @@ services:
       - GIT_EMAIL=silenceace@gmail.com
       - GIT_NAME=funnyzak
       - STARTUP_COMMANDS=n 16.13.1
-      - AFTER_PULL_COMMANDS=npm install --registry https://registry.npm.taobao.org
+      - AFTER_PULL_COMMANDS=npm install --production --registry https://registry.npm.taobao.org
       - NOTIFY_ACTION_LABEL=已启动|更新拉取中..|最新更新已拉取，开始部署..|已完成部署并启动
       - NOTIFY_ACTION_LIST=StartUp|AfterPackage
       # notify service of webhook done
@@ -30,9 +30,7 @@ services:
     volumes:
       - ./scripts/start.sh:/custom_scripts/after_package/start_app.sh # start app
       - ./ssh:/root/.ssh # pull code ssh key
-      - ./static:/public # static folder
-      - ./logs:/logs # logs
-      - ./conf/config-production.js:/app/code/config/config-production.js # production config
+      - ./app:/app/code # app code
     ports:
       - 5006:9000 # hook
       - 5007:80 # app
