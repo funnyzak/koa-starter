@@ -25,7 +25,13 @@ module.exports = [
       // token验证
       TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
       // 上传
-      UploadMdw(config.app.upload)
+      UploadMdw(
+        _.merge(config.app.upload, {
+          keepOriginName: false,
+          removeTmpFile: false,
+          isSaveDir: false
+        })
+      )
     ]
   }
 ].map((router) => {

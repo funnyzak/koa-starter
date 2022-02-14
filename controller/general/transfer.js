@@ -1,7 +1,11 @@
 'use strict'
 
+const fs = require('fs')
+const path = require('path')
+
 const _ = require('lodash')
 const config = require('../../config')
+const utils = require('../../lib/utils')
 const ErrorMsg = require('../../common/error-msg')
 const LogType = require('../../common/log-type')
 
@@ -19,7 +23,7 @@ const logger = require('../../lib/logger')
  * @returns
  */
 function saveRequestFiles(ctx, opts = {}) {
-  const { cloud: saveCloud, forceDB } = opts
+  let { cloud: saveCloud, forceDB } = opts
   let requestFiles = ctx.requestFiles.success
 
   return new Promise(async (resolve, reject) => {
@@ -44,7 +48,7 @@ function saveRequestFiles(ctx, opts = {}) {
             mime: _file.type,
             suffix: _file.suffix,
             hash: _file.hash,
-            savePath: _file.shortPath,
+            savePath: _file.savePath,
             ip: ctx.ip
           }
 
@@ -54,21 +58,28 @@ function saveRequestFiles(ctx, opts = {}) {
             delete new_finfo.createdAt
             delete new_finfo.updatedAt
           }
-
-          if (forceDB) {
+          if (!_finfo || forceDB) {
             shouldSaveDB = true
           }
 
-          if ((!_finfo || (!_finfo.cloud && _finfo.cloud === null)) && saveCloud) {
-            const _key = `${config.app.upload.cloudPathPrefix}/${_file.shortPath}`
+          saveCloud = (!_finfo || (!_finfo.cloud && _finfo.cloud === null)) && saveCloud
+          if (saveCloud || shouldSaveDB) {
+            // 删除临时文件
+            if ((await fs.existsSync(_file.tmpPath)) && !(await fs.existsSync(_file.path))) {
+              await utils.createDirsSync(path.dirname(_file.path))
+              await fs.renameSync(_file.tmpPath, _file.path)
+            }
+          }
+
+          if (saveCloud) {
+            const _key = `${config.app.upload.cloudPathPrefix}/${_file.savePath}`
             await aliyun.oss.put(_file.path, _key)
             new_finfo.cloud = CLOUD_STORAGE_VENOR.ALIYUN
             new_finfo.bucket = aliyun.oss.option.bucket
             new_finfo.objectKey = _key
-
-            shouldSaveDB = true
           }
-          new_finfo = shouldSaveDB ? await FileObject.upsert(new_finfo) : new_finfo
+
+          new_finfo = shouldSaveDB || saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
           new_finfo.url = _file.url
           return new_finfo
         } catch (e) {
