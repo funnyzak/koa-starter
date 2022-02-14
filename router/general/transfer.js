@@ -27,17 +27,6 @@ module.exports = [
       // 上传
       UploadMdw(config.app.upload)
     ]
-  },
-  {
-    method: 'put',
-    path: '/transfer2',
-    controller: TransferCtrl.transfer2,
-    middleware: [
-      // token验证
-      TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
-      // 上传
-      UploadMdw(config.app.upload)
-    ]
   }
 ].map((router) => {
   router.checkParam = _.merge(checkToken, router.checkParam)
