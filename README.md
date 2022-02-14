@@ -24,6 +24,7 @@
   - [特点](#特点)
   - [结构](#结构)
   - [运行](#运行)
+  - [部署](#部署)
   - [参考](#参考)
   - [赞赏](#赞赏)
   - [Author](#author)
@@ -49,6 +50,7 @@
     ├── app.js                                 // app入口文件
     ├── common                                 // 公共库
     ├── config                                 // 应用配置
+    ├── deploy                                 // 部署示例
     ├── controller                             // 路由控制器
     ├── index.js                               // 启动文件
     ├── lib                                    // 工具库
@@ -79,6 +81,10 @@ npm start
 ## 测试覆盖
 npm run cov
 ```
+
+## 部署
+
+- [通过 Docker-Compose 完成自动化部署](https://github.com/funnyzak/koa-quick-start/tree/master/deploy/docker)
 
 ## 参考
 
