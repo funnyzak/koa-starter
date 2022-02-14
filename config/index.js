@@ -27,7 +27,8 @@ if (env) {
   } catch (e) {
     logger.error({
       type: LogType.CONFIG_ERROR,
-      msg: e.message
+      msg: e.message,
+      stack: e.stack
     })
   }
 }
