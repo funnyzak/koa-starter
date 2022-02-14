@@ -62,8 +62,8 @@ function saveRequestFiles(ctx, opts = {}) {
             shouldSaveDB = true
           }
 
-          saveCloud = (!_finfo || (!_finfo.cloud && _finfo.cloud === null)) && saveCloud
-          if (saveCloud || shouldSaveDB) {
+          const _saveCloud = (!_finfo || !_finfo.cloud || _finfo.cloud === null) && saveCloud
+          if (_saveCloud || shouldSaveDB) {
             // 删除临时文件
             if ((await fs.existsSync(_file.tmpPath)) && !(await fs.existsSync(_file.path))) {
               await utils.createDirsSync(path.dirname(_file.path))
@@ -71,7 +71,7 @@ function saveRequestFiles(ctx, opts = {}) {
             }
           }
 
-          if (saveCloud) {
+          if (_saveCloud) {
             const _key = `${config.app.upload.cloudPathPrefix}/${_file.savePath}`
             await aliyun.oss.put(_file.path, _key)
             new_finfo.cloud = CLOUD_STORAGE_VENOR.ALIYUN
@@ -79,7 +79,7 @@ function saveRequestFiles(ctx, opts = {}) {
             new_finfo.objectKey = _key
           }
 
-          new_finfo = shouldSaveDB || saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
+          new_finfo = shouldSaveDB || _saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
           new_finfo.url = _file.url
           return new_finfo
         } catch (e) {
