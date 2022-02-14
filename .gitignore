@@ -72,7 +72,10 @@ tmp/
 
 
 config/config-*.js
+**/conf/config-production.js
 !config/config-default.js
+
+**/ssh
 
 /test.js
 
@@ -80,3 +83,4 @@ config/config-*.js
 *_test.js
 
 /public/upload
+
