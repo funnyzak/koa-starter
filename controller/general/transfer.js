@@ -23,7 +23,7 @@ const logger = require('../../lib/logger')
  * @returns
  */
 function saveRequestFiles(ctx, opts = {}) {
-  let { cloud: saveCloud, forceDB } = opts
+  let { cloud: saveCloud } = opts
   let requestFiles = ctx.requestFiles.success
 
   return new Promise(async (resolve, reject) => {
@@ -40,47 +40,49 @@ function saveRequestFiles(ctx, opts = {}) {
       requestFiles.map(async (_file) => {
         try {
           let _finfo = finfo_list.find((v) => v.hash === _file.hash)
-          let shouldSaveDB = false
+          let shouldSaveDB = !_finfo || (_finfo && !(await fs.existsSync(path.join(config.app.upload.saveDir, _finfo.savePath))))
 
-          let new_finfo = {
-            name: _file.originInfo.name,
-            size: _file.size,
-            mime: _file.type,
-            suffix: _file.suffix,
-            hash: _file.hash,
-            savePath: _file.savePath,
-            ip: ctx.ip
-          }
+          let new_finfo = shouldSaveDB
+            ? _.merge(_finfo, {
+                name: _file.originInfo.name,
+                size: _file.size,
+                mime: _file.type,
+                suffix: _file.suffix,
+                hash: _file.hash,
+                savePath: _file.savePath,
+                ip: ctx.ip
+              })
+            : { ..._finfo }
 
-          if (_finfo) {
-            new_finfo = _.merge(_finfo, new_finfo)
-
-            delete new_finfo.createdAt
-            delete new_finfo.updatedAt
-          }
-          if (!_finfo || forceDB || !(await fs.existsSync(path.join(config.app.upload.saveDir, _finfo.savePath)))) {
-            shouldSaveDB = true
-          }
-
-          const _saveCloud = (!_finfo || !_finfo.cloud || _finfo.cloud === null) && saveCloud
-          if (_saveCloud || shouldSaveDB) {
+          if (shouldSaveDB) {
             // 删除临时文件
             if ((await fs.existsSync(_file.tmpPath)) && !(await fs.existsSync(_file.path))) {
               await utils.createDirsSync(path.dirname(_file.path))
               await fs.renameSync(_file.tmpPath, _file.path)
             }
+          } else {
+            await fs.unlinkSync(_file.tmpPath)
           }
 
+          const file_path = path.join(config.app.upload.saveDir, new_finfo.savePath)
+
+          const _saveCloud = (!_finfo || !_finfo.cloud || _finfo.cloud === null) && saveCloud
+
           if (_saveCloud) {
-            const _key = `${config.app.upload.cloudPathPrefix}/${_file.savePath}`
-            await aliyun.oss.put(_file.path, _key)
+            const _key = `${config.app.upload.cloudPathPrefix}/${new_finfo.savePath}`
+            await aliyun.oss.put(file_path, _key)
             new_finfo.cloud = CLOUD_STORAGE_VENOR.ALIYUN
             new_finfo.bucket = aliyun.oss.option.bucket
             new_finfo.objectKey = _key
           }
 
+          if ((shouldSaveDB || saveCloud) && new_finfo.createdAt) {
+            delete new_finfo.createdAt
+            delete new_finfo.updatedAt
+          }
+
           new_finfo = shouldSaveDB || _saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
-          new_finfo.url = _file.url
+          new_finfo.url = `${config.app.upload.urlPrefix}/${new_finfo.savePath}`
           return new_finfo
         } catch (e) {
           logger.error({ stack: e.stack, message: e.message })
