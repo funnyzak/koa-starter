@@ -20,6 +20,9 @@ cat /dev/null > nohup.out
 
 sleep 2
 
+export PORT=$Port
+export NODE_ENV=$NODE_ENV
+
 # start app
 echo 'start server..'
-nohup node $NODE_ENPOINT_SCRIPT  NODE_ENV=$NODE_ENV Port=$Port &
+nohup node $NODE_ENPOINT_SCRIPT &
