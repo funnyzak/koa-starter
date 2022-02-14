@@ -58,7 +58,7 @@ function saveRequestFiles(ctx, opts = {}) {
             delete new_finfo.createdAt
             delete new_finfo.updatedAt
           }
-          if (!_finfo || forceDB) {
+          if (!_finfo || forceDB || !(await fs.existsSync(path.join(config.app.upload.saveDir, _finfo.savePath)))) {
             shouldSaveDB = true
           }
 
