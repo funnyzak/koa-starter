@@ -82,7 +82,7 @@ function saveRequestFiles(ctx, opts = {}) {
           }
 
           new_finfo = shouldSaveDB || _saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
-          new_finfo.url = `${config.app.upload.urlPrefix}/${new_finfo.savePath}`
+          new_finfo.url = `${config.app.upload.virtualPath}/${new_finfo.savePath}`
           return new_finfo
         } catch (e) {
           logger.error({ stack: e.stack, message: e.message })
