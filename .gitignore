@@ -84,3 +84,5 @@ config/config-*.js
 
 /public/upload
 
+nohup.out
+
