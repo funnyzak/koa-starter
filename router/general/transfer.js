@@ -33,6 +33,25 @@ module.exports = [
         })
       )
     ]
+  },
+  {
+    method: 'put',
+    path: '/transfer2',
+    checkParam: transferPut,
+    controller: TransferCtrl.transfer2,
+    middleware: [
+      // token验证
+      TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
+      // 上传
+      UploadMdw(
+        _.merge(config.app.upload, {
+          keepOriginName: true,
+          removeTmpFile: true,
+          isSaveDir: true,
+          savePrefix: 'transfer2'
+        })
+      )
+    ]
   }
 ].map((router) => {
   router.checkParam = _.merge(checkToken, router.checkParam)

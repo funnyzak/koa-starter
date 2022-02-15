@@ -156,5 +156,10 @@ module.exports = {
     })
 
     ctx.body = fileObjectsResponseFormat(fileObjects)
+  },
+  transfer2: async (ctx) => {
+    checkRequestFiles(ctx)
+
+    ctx.body = ctx.requestFiles
   }
 }
