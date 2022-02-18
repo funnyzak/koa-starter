@@ -23,7 +23,13 @@ if (env) {
     }
 
     let envConfig = require(customConfigPath)
-    config = _.merge(config, envConfig)
+
+    // 合并配置，如何配置项是数组，则以环境配置文件为准
+    config = _.mergeWith(config, envConfig, (objValue, srcValue) => {
+      if (_.isArray(objValue)) {
+        return srcValue
+      }
+    })
   } catch (e) {
     logger.error({
       type: LogType.CONFIG_ERROR,
