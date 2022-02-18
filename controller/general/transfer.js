@@ -135,12 +135,18 @@ function fileObjectsResponseFormat(fileObjects) {
 
 const checkRequestFiles = (ctx) => {
   if (!ctx.requestFiles || (ctx.requestFiles.fail.length > 0 && ctx.requestFiles.success.length === 0)) {
-    throw new SysError(ErrorMsg.REQUEST_FILES, ErrorCode.INVALID_PARAM)
+    throw new SysError(ctx.requestFiles.fail[0].error.message, ErrorCode.INVALID_PARAM)
   }
 }
 
 module.exports = {
   transfer: async (ctx) => {
+    logger.info({
+      type: LogType.CONTROLLER_INFO,
+      action: 'transfer files',
+      data: ctx.requestFiles
+    })
+
     checkRequestFiles(ctx)
 
     let fileObjects = await saveRequestFiles(ctx, {
@@ -148,12 +154,6 @@ module.exports = {
     })
 
     fileObjects = ctx.query.signature ? await signatureFileObjects(fileObjects) : fileObjects
-
-    logger.info({
-      type: LogType.CONTROLLER_INFO,
-      action: 'transfer files',
-      data: fileObjects
-    })
 
     ctx.body = fileObjectsResponseFormat(fileObjects)
   },

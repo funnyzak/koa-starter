@@ -24,7 +24,8 @@ module.exports = (options) => {
 
     ctx.requestFiles = await upload.process(ctx.req, {
       ...options,
-      savePrefix
+      savePrefix,
+      keepOriginName: ctx.query.keepOriginName ? true : undefined
     })
 
     await next()
