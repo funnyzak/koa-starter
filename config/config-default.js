@@ -92,7 +92,7 @@ const config = {
     mongoDb: {
       logging: process.env.NODE_ENV === 'development',
       // uri: 'mongodb+srv://<clusterUrl>/?replicaSet=rs&writeConcern=majority', // mongodb 连接地址（优先）
-      db: 'koa-quick-start',
+      db: 'koa-starter',
       // username: 'user',
       // password: 'password',
       host: 'localhost',

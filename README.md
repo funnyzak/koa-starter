@@ -1,13 +1,13 @@
-# Koa2 Quick Start
+# Koa2 Starter
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![action][ci-image]][ci-url]
 [![license][license-image]][repository-url]
 
-[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-quick-start/Node.js%20CI
-[ci-url]: https://github.com/funnyzak/koa-quick-start/actions
-[license-image]: https://img.shields.io/github/license/funnyzak/koa-quick-start.svg?style=flat-square
-[repository-url]: https://github.com/funnyzak/koa-quick-start
+[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-starter/Node.js%20CI
+[ci-url]: https://github.com/funnyzak/koa-starter/actions
+[license-image]: https://img.shields.io/github/license/funnyzak/koa-starter.svg?style=flat-square
+[repository-url]: https://github.com/funnyzak/koa-starter
 
 基于 Koa2 构建的快速开始 Web 脚手架。
 
@@ -18,7 +18,7 @@
 
 ## 目录
 
-- [Koa2 Quick Start](#koa2-quick-start)
+- [Koa2 Starter](#koa2-starter)
   - [目录](#目录)
   - [特点](#特点)
   - [结构](#结构)
@@ -93,8 +93,8 @@ npm run cov
 
 ## Author
 
-| [![twitter/funnyzak](https://s.gravatar.com/avatar/c2437e240644b1317a4a356c6d6253ee?s=70)](https://twitter.com/funnyzak 'Follow @funnyzak on Twitter') [![Join the chat at https://gitter.im/koa-quick-start/community](https://badges.gitter.im/koa-quick-start/community.svg)](https://gitter.im/koa-quick-start/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![twitter/funnyzak](https://s.gravatar.com/avatar/c2437e240644b1317a4a356c6d6253ee?s=70)](https://twitter.com/funnyzak 'Follow @funnyzak on Twitter') [![Join the chat at https://gitter.im/koa-starter/community](https://badges.gitter.im/koa-starter/community.svg)](https://gitter.im/koa-starter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 | [funnyzak](https://yycc.me/)
 
