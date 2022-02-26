@@ -6,8 +6,8 @@
 [![GitHub last commit][last-commit-image]][repository-url]
 [![GitHub commit activity][commit-activity-image]][repository-url]
 
-[commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/react-native-starter?style=flat-square
-[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/react-native-starter?style=flat-square
+[commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/koa-starter?style=flat-square
+[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/koa-starter?style=flat-square
 [ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-starter/Node.js%20CI
 [ci-url]: https://github.com/funnyzak/koa-starter/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-starter.svg?style=flat-square
