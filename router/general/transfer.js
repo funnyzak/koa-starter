@@ -25,18 +25,32 @@ module.exports = [
       // token验证
       TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
       // 上传
-      UploadMdw(config.app.upload)
+      UploadMdw(
+        _.merge(config.app.upload, {
+          keepOriginName: false,
+          removeTmpFile: false,
+          isSaveDir: false
+        })
+      )
     ]
   },
   {
     method: 'put',
     path: '/transfer2',
+    checkParam: transferPut,
     controller: TransferCtrl.transfer2,
     middleware: [
       // token验证
       TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
       // 上传
-      UploadMdw(config.app.upload)
+      UploadMdw(
+        _.merge(config.app.upload, {
+          keepOriginName: true,
+          removeTmpFile: true,
+          isSaveDir: true,
+          savePrefix: 'transfer2'
+        })
+      )
     ]
   }
 ].map((router) => {

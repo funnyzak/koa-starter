@@ -14,6 +14,7 @@
 下一步
 
 - [ ] 独立 multipart 上传中间件
+- [ ] 完善路由文档
 - [x] 优化上传功能
 
 ## 目录
@@ -23,6 +24,8 @@
   - [特点](#特点)
   - [结构](#结构)
   - [运行](#运行)
+  - [接口](#接口)
+  - [部署](#部署)
   - [参考](#参考)
   - [赞赏](#赞赏)
   - [Author](#author)
@@ -40,6 +43,7 @@
 8. ejs 模板引擎
 9. 支持跨域、文件静态、多路由声明
 10. 支持测试覆盖
+11. 简单的文件存储服务（集成了阿里云）
 
 ## 结构
 
@@ -47,6 +51,7 @@
     ├── app.js                                 // app入口文件
     ├── common                                 // 公共库
     ├── config                                 // 应用配置
+    ├── deploy                                 // 部署示例
     ├── controller                             // 路由控制器
     ├── index.js                               // 启动文件
     ├── lib                                    // 工具库
@@ -77,6 +82,14 @@ npm start
 ## 测试覆盖
 npm run cov
 ```
+
+## 接口
+
+已经实现的接口，已梳理为接口文档，托管在[APIPOST](<(https://docs.apipost.cn/preview/360b0518f5e2805e/4d5c697edb4e2b6b)>)，[在线查看](https://docs.apipost.cn/preview/360b0518f5e2805e/4d5c697edb4e2b6b)。
+
+## 部署
+
+- [通过 Docker-Compose 完成自动化部署](https://github.com/funnyzak/koa-quick-start/tree/master/deploy/docker)
 
 ## 参考
 

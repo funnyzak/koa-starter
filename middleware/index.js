@@ -21,6 +21,7 @@ const config = require('../config')
 
 const requestTime = require('./response-time')
 const responseFormat = require('./response-format')
+const requestLog = require('./request-log')
 
 const SysError = require('../common/sys-error')
 const ErrorCode = require('../common/error-code')
@@ -56,17 +57,9 @@ module.exports = (app) => {
           {
             onError: (err) => {
               if (err.status === StatusCode.REQUEST_ENTITY_TOO_LARGE) {
-                throw new SysError(
-                  ErrorMsg.REQUEST_ENTITY_TOO_LARGE,
-                  ErrorCode.REQUEST_ENTITY_TOO_LARGE,
-                  err.status
-                )
+                throw new SysError(ErrorMsg.REQUEST_ENTITY_TOO_LARGE, ErrorCode.REQUEST_ENTITY_TOO_LARGE, err.status)
               } else {
-                throw new SysError(
-                  ErrorMsg.UNKNOWN_ERROR,
-                  ErrorCode.UNKNOWN_ERROR,
-                  StatusCode.BAD_REQUEST
-                )
+                throw new SysError(ErrorMsg.UNKNOWN_ERROR, ErrorCode.UNKNOWN_ERROR, StatusCode.BAD_REQUEST)
               }
             }
           },
@@ -80,6 +73,8 @@ module.exports = (app) => {
         maxage: 5000
       })
     )
+    // request log
+    .use(requestLog())
     // favicon
     .use(favicon(path.join(__dirname, '../public/favicon.ico')))
     // json pretter
@@ -97,19 +92,11 @@ module.exports = (app) => {
           throw: true,
           // 不支持此 HTTP 方法
           notImplemented: () => {
-            return new SysError(
-              ErrorMsg.ROUTER_NOT_FOUND,
-              ErrorCode.ROUTER_NOT_FOUND,
-              StatusCode.NOT_FOUND
-            )
+            return new SysError(ErrorMsg.ROUTER_NOT_FOUND, ErrorCode.ROUTER_NOT_FOUND, StatusCode.NOT_FOUND)
           },
           // 路由存在，无对应方法
           methodNotAllowed: () => {
-            return new SysError(
-              ErrorMsg.METHOD_NOT_ALLOWED,
-              ErrorCode.ROUTER_NOT_FOUND,
-              StatusCode.METHOD_NOT_ALLOWED
-            )
+            return new SysError(ErrorMsg.METHOD_NOT_ALLOWED, ErrorCode.ROUTER_NOT_FOUND, StatusCode.METHOD_NOT_ALLOWED)
           }
         })
       )

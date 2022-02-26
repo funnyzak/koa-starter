@@ -1,0 +1,56 @@
+version: '3.1'
+services:
+  app:
+    # https://github.com/funnyzak/git-webhook-docker#readme
+    image: funnyzak/git-webhook:v2
+    privileged: true
+    container_name: koa-app
+    working_dir: /app/code
+    tty: true
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=C.UTF-8
+      - Port=80
+      - NODE_ENV=production
+      - USE_HOOK=1
+      - HOOK_TOKEN=youhooktoken
+      - APP_NAME=KoaAppService
+      - GIT_REPO=git@github.com:funnyzak/koa-quick-start.git
+      - GIT_BRANCH=master
+      - GIT_EMAIL=silenceace@gmail.com
+      - GIT_NAME=funnyzak
+      - STARTUP_COMMANDS=n 16.13.1
+      - AFTER_PULL_COMMANDS=npm install --production --registry https://registry.npm.taobao.org
+      - NOTIFY_ACTION_LABEL=已启动|更新拉取中..|最新更新已拉取，开始部署..|已完成部署并启动
+      - NOTIFY_ACTION_LIST=StartUp|AfterPackage
+      # notify service of webhook done
+      - JISHIDA_TOKEN_LIST=your_jishida_token
+      - IFTTT_HOOK_URL_LIST=https://maker.ifttt.com/trigger/deploy_notify/with/key/yout_ifttt_token
+    restart: on-failure
+    volumes:
+      - ./scripts/start.sh:/custom_scripts/after_package/start_app.sh # start app
+      - ./ssh:/root/.ssh # pull code ssh key
+      - ./app:/app/code # app code
+    ports:
+      - 5006:9000 # hook
+      - 5007:80 # app
+    depends_on:
+      - mongo
+    networks:
+      - koa_net
+  mongo:
+    image: mongo:5.0.1
+    container_name: koa-mongo
+    restart: always
+    volumes:
+      - ./db/mongo/db:/data/db
+      - ./db/mongo/log:/var/log/mongodb
+    environment:
+      MONGO_INITDB_DATABASE: koa-app
+      MONGO_INITDB_ROOT_USERNAME: mongo_root
+      MONGO_INITDB_ROOT_PASSWORD: IlCGpRg6NoXKyBPfdg
+    networks:
+      - koa_net
+networks:
+  koa_net:
+    driver: bridge

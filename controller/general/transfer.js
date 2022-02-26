@@ -1,7 +1,11 @@
 'use strict'
 
+const fs = require('fs')
+const path = require('path')
+
 const _ = require('lodash')
 const config = require('../../config')
+const utils = require('../../lib/utils')
 const ErrorMsg = require('../../common/error-msg')
 const LogType = require('../../common/log-type')
 
@@ -19,7 +23,7 @@ const logger = require('../../lib/logger')
  * @returns
  */
 function saveRequestFiles(ctx, opts = {}) {
-  const { cloud: saveCloud, forceDB } = opts
+  let { cloud: saveCloud } = opts
   let requestFiles = ctx.requestFiles.success
 
   return new Promise(async (resolve, reject) => {
@@ -36,40 +40,49 @@ function saveRequestFiles(ctx, opts = {}) {
       requestFiles.map(async (_file) => {
         try {
           let _finfo = finfo_list.find((v) => v.hash === _file.hash)
-          let shouldSaveDB = false
+          let shouldSaveDB = !_finfo || (_finfo && !(await fs.existsSync(path.join(config.app.upload.saveDir, _finfo.savePath))))
 
-          let new_finfo = {
-            name: _file.originInfo.name,
-            size: _file.size,
-            mime: _file.type,
-            suffix: _file.suffix,
-            hash: _file.hash,
-            savePath: _file.shortPath,
-            ip: ctx.ip
+          let new_finfo = shouldSaveDB
+            ? _.merge(_finfo, {
+                name: _file.originInfo.name,
+                size: _file.size,
+                mime: _file.type,
+                suffix: _file.suffix,
+                hash: _file.hash,
+                savePath: _file.savePath,
+                ip: ctx.ip
+              })
+            : { ..._finfo }
+
+          if (shouldSaveDB) {
+            // 删除临时文件
+            if ((await fs.existsSync(_file.tmpPath)) && !(await fs.existsSync(_file.path))) {
+              await utils.createDirsSync(path.dirname(_file.path))
+              await fs.renameSync(_file.tmpPath, _file.path)
+            }
+          } else {
+            await fs.unlinkSync(_file.tmpPath)
           }
 
-          if (_finfo) {
-            new_finfo = _.merge(_finfo, new_finfo)
+          const file_path = path.join(config.app.upload.saveDir, new_finfo.savePath)
 
+          const _saveCloud = (!_finfo || !_finfo.cloud || _finfo.cloud === null) && saveCloud
+
+          if (_saveCloud) {
+            const _key = `${config.app.upload.cloudPathPrefix}/${new_finfo.savePath}`
+            await aliyun.oss.put(file_path, _key)
+            new_finfo.cloud = CLOUD_STORAGE_VENOR.ALIYUN
+            new_finfo.bucket = aliyun.oss.option.bucket
+            new_finfo.objectKey = _key
+          }
+
+          if ((shouldSaveDB || saveCloud) && new_finfo.createdAt) {
             delete new_finfo.createdAt
             delete new_finfo.updatedAt
           }
 
-          if (forceDB) {
-            shouldSaveDB = true
-          }
-
-          if ((!_finfo || (!_finfo.cloud && _finfo.cloud === null)) && saveCloud) {
-            const _key = `${config.app.upload.cloudPathPrefix}/${_file.shortPath}`
-            await aliyun.oss.put(_file.path, _key)
-            new_finfo.cloud = CLOUD_STORAGE_VENOR.ALIYUN
-            new_finfo.bucket = aliyun.oss.option.bucket
-            new_finfo.objectKey = _key
-
-            shouldSaveDB = true
-          }
-          new_finfo = shouldSaveDB ? await FileObject.upsert(new_finfo) : new_finfo
-          new_finfo.url = _file.url
+          new_finfo = shouldSaveDB || _saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
+          new_finfo.url = `${config.app.upload.virtualPath}/${new_finfo.savePath}`
           return new_finfo
         } catch (e) {
           logger.error({ stack: e.stack, message: e.message })
@@ -122,12 +135,18 @@ function fileObjectsResponseFormat(fileObjects) {
 
 const checkRequestFiles = (ctx) => {
   if (!ctx.requestFiles || (ctx.requestFiles.fail.length > 0 && ctx.requestFiles.success.length === 0)) {
-    throw new SysError(ErrorMsg.REQUEST_FILES, ErrorCode.INVALID_PARAM)
+    throw new SysError(ctx.requestFiles.fail[0].error.message, ErrorCode.INVALID_PARAM)
   }
 }
 
 module.exports = {
   transfer: async (ctx) => {
+    logger.info({
+      type: LogType.CONTROLLER_INFO,
+      action: 'transfer files',
+      data: ctx.requestFiles
+    })
+
     checkRequestFiles(ctx)
 
     let fileObjects = await saveRequestFiles(ctx, {
@@ -136,15 +155,8 @@ module.exports = {
 
     fileObjects = ctx.query.signature ? await signatureFileObjects(fileObjects) : fileObjects
 
-    logger.info({
-      type: LogType.CONTROLLER_INFO,
-      action: 'transfer files',
-      data: fileObjects
-    })
-
     ctx.body = fileObjectsResponseFormat(fileObjects)
   },
-
   transfer2: async (ctx) => {
     checkRequestFiles(ctx)
 

@@ -11,7 +11,7 @@
     "eslint": "eslint --cache --fix ./",
     "test": "npx mocha ./test/**/*.test.js --exit --inspect=0.0.0.0:8888 --timeout 120000",
     "cov": "nyc npm run test",
-    "prepare": "husky install"
+    "prepare": "if [[ $NODE_ENV != \"production\" ]]; then husky install; fi"
   },
   "repository": {
     "type": "git",
