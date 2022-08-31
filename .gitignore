@@ -64,8 +64,6 @@ typings/
 
 .output/
 
-package-lock.json
-
 tmp/
 
 !*gitkeep
