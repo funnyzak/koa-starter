@@ -41,7 +41,7 @@ module.exports = [
     controller: TransferCtrl.transfer2,
     middleware: [
       // token验证
-      TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
+      // TokenMdw({ app: TOKEN_TYPE.TRANSFER }),
       // 上传
       UploadMdw(
         _.merge(config.app.upload, {

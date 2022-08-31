@@ -2,6 +2,7 @@
 
 const _ = require('lodash')
 const FileUpload = require('../lib/reqfiles')
+const logger = require('../lib/logger')
 
 module.exports = (options) => {
   options = _.merge(
@@ -9,7 +10,8 @@ module.exports = (options) => {
       savePrefix: undefined,
       keepOriginName: false,
       removeTmpFile: true,
-      isSaveDir: true
+      isSaveDir: true,
+      logger
     },
     options
   )
