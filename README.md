@@ -93,7 +93,7 @@ npm run cov
 
 ## 部署
 
-- [通过 Docker-Compose 完成自动化部署](https://github.com/funnyzak/koa-quick-start/tree/main/deploy/docker)
+- [通过 Docker-Compose 完成自动化部署](https://github.com/funnyzak/koa-starter/tree/main/deploy/docker)
 
 ## 参考
 
