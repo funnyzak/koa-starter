@@ -17,7 +17,6 @@
 
 下一步
 
-- [ ] 独立 multipart 上传中间件
 - [x] 完善路由文档
 - [x] 优化上传功能
 
@@ -75,7 +74,7 @@
 2. 安装项目依赖，启动项目。
 
 ```bash
-npm install
+npm ci
 
 ## 开发启动
 npm run watch
