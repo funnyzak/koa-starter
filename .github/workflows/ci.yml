@@ -46,6 +46,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Archive Release
+        uses: papeloto/action-zip@v1
+        with:
+          files: |
+            ./
+          recursive: false
+          dest: ${{ env.DIST_ARCHIVE_NAME }}-${{ steps.get_version.outputs.VERSION }}.zip
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -55,9 +65,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Build changelog
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v2.9.0
@@ -66,13 +73,6 @@ jobs:
         with:
           configuration: '.github/config/changelog_configuration.json'
           ignorePreReleases: 'false'
-      - name: Archive Release
-        uses: papeloto/action-zip@v1
-        with:
-          files: |
-            ./
-          recursive: false
-          dest: ${{ env.DIST_ARCHIVE_NAME }}-${{ steps.get_version.outputs.VERSION }}.zip
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
