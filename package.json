@@ -9,6 +9,7 @@
     "watch": "npm run dev",
     "serve": "npm run dev",
     "eslint": "eslint --cache --fix ./",
+    "eslint:check": "eslint --cache --fix --quiet ./",
     "test": "npx mocha ./test/**/*.test.js --exit --inspect=0.0.0.0:8888 --timeout 120000",
     "cov": "nyc npm run test",
     "prepare": "if [[ $NODE_ENV != \"production\" ]]; then husky install; fi"

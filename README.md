@@ -1,24 +1,25 @@
 # Koa2 Starter
 
-[![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![action][ci-image]][ci-url]
+基于 Koa2 构建的快速开始 Web 脚手架。
+
+[![Build Status][build-status-image]][build-status]
 [![license][license-image]][repository-url]
 [![GitHub last commit][last-commit-image]][repository-url]
 [![GitHub commit activity][commit-activity-image]][repository-url]
+[![npm download][download-image]][download-url]
 
+<!-- [![action][ci-image]][ci-url] -->
+
+[build-status-image]: https://github.com/funnyzak/koa-starter/actions/workflows/test.yml/badge.svg
+[build-status]: https://github.com/funnyzak/koa-starter/actions
 [commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/koa-starter?style=flat-square
 [last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/koa-starter?style=flat-square
 [ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-starter/Node.js%20CI
 [ci-url]: https://github.com/funnyzak/koa-starter/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-starter.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/koa-starter
-
-基于 Koa2 构建的快速开始 Web 脚手架。
-
-下一步
-
-- [x] 完善路由文档
-- [x] 优化上传功能
+[download-image]: https://img.shields.io/npm/dm/koa-starter.svg?style=flat-square
+[download-url]: https://npmjs.org/package/koa-starter
 
 ## 目录
 
@@ -30,8 +31,7 @@
   - [接口](#接口)
   - [部署](#部署)
   - [参考](#参考)
-  - [赞赏](#赞赏)
-  - [Author](#author)
+  - [Contribution](#contribution)
   - [License](#license)
 
 ## 特点
@@ -103,16 +103,13 @@ npm run cov
 - [sequelizejs](https://sequelize.org/master/manual/getting-started.html)
 - [Joi](https://joi.dev/api/)
 
-## 赞赏
+## Contribution
 
-![赞赏](https://raw.githubusercontent.com/funnyzak/funnyzak/master/public/assets/img/coffee.png)
+If you have any questions or suggestions, please feel free to open an issue or pull request.
 
-## Author
-
-| [![twitter/funnyzak](https://s.gravatar.com/avatar/c2437e240644b1317a4a356c6d6253ee?s=70)](https://twitter.com/funnyzak 'Follow @funnyzak on Twitter') [![Join the chat at https://gitter.im/koa-starter/community](https://badges.gitter.im/koa-starter/community.svg)](https://gitter.im/koa-starter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-
-| [funnyzak](https://yycc.me/)
+<a href="https://github.com/funnyzak/koa-starter/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=funnyzak/koa-starter" />
+</a>
 
 ## License
 
