@@ -4,22 +4,27 @@
 
 [![Build Status][build-status-image]][build-status]
 [![license][license-image]][repository-url]
+[![Sourcegraph][sg-image]][sg-url]
 [![GitHub last commit][last-commit-image]][repository-url]
-[![GitHub commit activity][commit-activity-image]][repository-url]
-[![npm download][download-image]][download-url]
+[![GitHub repo size][repo-size-image]][repository-url]
 
 <!-- [![action][ci-image]][ci-url] -->
+<!-- [![npm download][download-image]][download-url] -->
+<!-- [![GitHub commit activity][commit-activity-image]][repository-url] -->
 
 [build-status-image]: https://github.com/funnyzak/koa-starter/actions/workflows/test.yml/badge.svg
+[sg-image]: https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?style=flat-square
+[sg-url]: https://sourcegraph.com/github.com/funnyzak/koa-starter
 [build-status]: https://github.com/funnyzak/koa-starter/actions
 [commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/koa-starter?style=flat-square
-[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/koa-starter?style=flat-square
+[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/koa-starter?style=flat-square?style=flat-square&label=last%20commit
 [ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-starter/Node.js%20CI
 [ci-url]: https://github.com/funnyzak/koa-starter/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-starter.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/koa-starter
 [download-image]: https://img.shields.io/npm/dm/koa-starter.svg?style=flat-square
 [download-url]: https://npmjs.org/package/koa-starter
+[repo-size-image]: https://img.shields.io/github/repo-size/funnyzak/koa-starter?style=flat-square&logo=github&logoColor=white&label=size
 
 ## 目录
 
