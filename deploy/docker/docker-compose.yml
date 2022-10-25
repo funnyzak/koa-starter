@@ -39,7 +39,7 @@ services:
     networks:
       - koa_net
   mongo:
-    image: mongo:5.0.1
+    image: mongo:5.0.13
     container_name: koa-mongo
     restart: always
     volumes:
