@@ -12,7 +12,7 @@ const favicon = require('koa-favicon')
 const serve = require('koa-static')
 const json = require('koa-json')
 const views = require('koa-views')
-const koaBody = require('koa-body')
+const { koaBody } = require('koa-body')
 const cors = require('koa-cors')
 
 const routers = require('../router')
