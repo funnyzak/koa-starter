@@ -1,6 +1,6 @@
 {
   "name": "koa2-starter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "koa2 quick start project",
   "main": "index.js",
   "scripts": {
