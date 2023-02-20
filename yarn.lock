@@ -3306,10 +3306,10 @@ koa-send@^5.0.0:
     http-errors "^1.7.3"
     resolve-path "^1.4.0"
 
-koa-session@^6.3.1:
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/koa-session/-/koa-session-6.3.1.tgz#a6bc1f1ece1258d4ee4f02017c70eb6c03e7bc93"
-  integrity sha512-Y6206QSkDgtIgjTT7ndmIgZjWrOcY3jflfsDjwvxLfYwSiwKGVAi3l1ExhI2KjkEO1uhKyPxcEWhEDn8HaoRUg==
+koa-session@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/koa-session/-/koa-session-6.4.0.tgz#f17c6f1844b37114192aa23a0ccf4f58c3042e96"
+  integrity sha512-h/dxmSOvNEXpHQPRs4TV03TZVFyZIjmYQiTAW5JBFTYBOZ0VdpZ8QEE6Dud75g8z9JNGXi3m++VqRmqToB+c2A==
   dependencies:
     crc "^3.8.0"
     debug "^4.3.3"
