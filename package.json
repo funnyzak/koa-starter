@@ -1,7 +1,7 @@
 {
   "name": "koa2-starter",
-  "version": "0.1.2",
-  "description": "koa2 quick start project",
+  "version": "0.2.0",
+  "description": "Koa2 starter is a boilerplate for Node.js web applications.",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./index",

@@ -26,10 +26,12 @@
 - [Koa2 Starter](#koa2-starter)
   - [目录](#目录)
   - [特点](#特点)
-  - [结构](#结构)
   - [运行](#运行)
   - [接口](#接口)
+  - [结构](#结构)
   - [部署](#部署)
+    - [Compose 部署](#compose-部署)
+    - [Docker 启动](#docker-启动)
   - [参考](#参考)
   - [Contribution](#contribution)
   - [License](#license)
@@ -48,26 +50,6 @@
 10. 支持测试覆盖
 11. 简单的文件存储服务（集成了阿里云）
 
-## 结构
-
-    ├── .vscode                                // vscode 配置
-    ├── app.js                                 // app入口文件
-    ├── common                                 // 公共库
-    ├── config                                 // 应用配置
-    ├── deploy                                 // 部署示例
-    ├── controller                             // 路由控制器
-    ├── index.js                               // 启动文件
-    ├── lib                                    // 工具库
-    ├── logs                                   // 日志文件夹
-    ├── middleware                             // 中间件
-    ├── test                                   // 测试覆盖
-    ├── models                                 // db model
-    ├── public                                 // 静态资源文件夹
-    ├── router                                 // 路由
-    ├── schema                                 // 验证规则
-    ├── service                                // 应用业务
-    └── views                                  // 模板
-
 ## 运行
 
 1. **config**下，创建 **config-[name].js** 配置文件；
@@ -81,6 +63,8 @@ npm run watch
 
 # 生产启动
 npm start
+# or
+export NODE_ENV=production && node index.js
 
 # 测试覆盖
 npm run cov
@@ -90,9 +74,48 @@ npm run cov
 
 已经实现的接口，已梳理为接口文档，托管在[APIPOST](<(https://docs.apipost.cn/preview/360b0518f5e2805e/4d5c697edb4e2b6b)>)，[在线查看](https://docs.apipost.cn/preview/360b0518f5e2805e/4d5c697edb4e2b6b)。
 
+## 结构
+
+    ├── .vscode                                // vscode 配置
+    ├── app.js                                 // app入口文件
+    ├── common                                 // 公共库
+    ├── config                                 // 应用配置
+    ├── docker-compose                         // Dokcer 部署示例
+    ├── controller                             // 路由控制器
+    ├── index.js                               // 启动文件
+    ├── lib                                    // 工具库
+    ├── logs                                   // 日志文件夹
+    ├── middleware                             // 中间件
+    ├── test                                   // 测试覆盖
+    ├── models                                 // db model
+    ├── public                                 // 静态资源文件夹
+    ├── router                                 // 路由
+    ├── schema                                 // 验证规则
+    ├── service                                // 应用业务
+    └── views                                  // 模板
+
 ## 部署
 
-- [通过 Docker-Compose 完成自动化部署](https://github.com/funnyzak/koa-starter/tree/main/deploy/docker)
+### Compose 部署
+
+可以通过配置 Docker-Compose 结合 git-webhook 完成自动化部署，可看[示例配置](https://github.com/funnyzak/koa-starter/tree/main/docker-compose)。
+
+### Docker 启动
+
+也可以通过 Docker 启动，需要注意的是，需要挂载项目文件到容器中，否则无法启动。
+
+```bash
+docker run -v "$(pwd)":/app -e NODE_ENV=production --name my-node-app  -p 81:3000 funnyzak/java-nodejs-python-go-etc node /app/index.js
+```
+
+以上是生产环境的启动命令，因此需要修改 `config/config-production.js` 配置文件。
+
+- `-v "$(pwd)":/app` 将当前目录映射到容器的`/app`目录。
+- `-e NODE_ENV=production` 设置环境变量`NODE_ENV`为`production`。
+- `--name my-node-app` 指定容器的名称为`my-node-app`。
+- `-p 81:3000` 将容器的`3000`端口映射到主机的`81`端口。
+- `funnyzak/java-nodejs-python-go-etc` 是您要使用的镜像名称。
+- `node /app/index.js` 是要在容器中执行的启动命令。
 
 ## 参考
 
