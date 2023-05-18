@@ -3,8 +3,8 @@ const path = require('path')
 const config = {
   app: {
     name: 'koa quick start',
-    host: 'http://127.0.0.1:2058', // app主页地址
-    port: 2058, // 服务启动监听端口
+    host: 'http://127.0.0.1:3000', // app主页地址
+    port: 3000, // 服务启动监听端口
     upload: {
       // 文件上传临时文件夹
       tmpDir: path.join(__dirname, '../public/upload/tmp'),

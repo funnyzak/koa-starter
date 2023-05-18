@@ -98,7 +98,9 @@ module.exports = () => {
       })
 
       if (
-        config.app.jsonResponseRoutePrefix.find((v) => ctx.url.indexOf(v) === 0)
+        config.app.jsonResponseRoutePrefix.find(
+          (v) => ctx.url.indexOf(v) === 0
+        )
       ) {
         ctx.body = responseBody
       }

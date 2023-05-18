@@ -1,0 +1,61 @@
+version: '3.1'
+services:
+  app:
+    image: funnyzak/git-job:2.0.7
+    container_name: koa-app
+    working_dir: /app/code
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=C.UTF-8
+      # repo config
+      - USE_HOOK=true
+      - GIT_USER_NAME=Leon
+      - GIT_USER_EMAIL=youremail@main.com
+      - HOOK_TOKEN=XqMWRndNzbE9sdf
+      - GIT_REPO_URL=git@github.com:funnyzak/koa-starter.git
+      - GIT_BRANCH=main
+      # commands
+      - STARTUP_COMMANDS=echo startup time:$$(date)
+      - BEFORE_PULL_COMMANDS=echo before pull time:$$(date)
+      - AFTER_PULL_COMMANDS=echo after pull time:$$(date)
+      # pushoo 
+      - SERVER_NAME=KoaStarter
+      - PUSHOO_PUSH_PLATFORMS=dingtalk,bark
+      - PUSHOO_PUSH_TOKENS=dingtalktoken:barktoken
+      - PUSHOO_PUSH_OPTIONS={"dingtalk":{"atMobiles":["13800000000"]},"bark":{"sound":"tink"}}
+      # custom environment for build
+      - INSTALL_DEPS_COMMAND=npm ci
+      # optional
+      - CODE_DIR=/app/code
+      - TARGET_DIR=/app/target
+      # app
+      - Port=3000
+      - NODE_ENV=production
+    restart: on-failure
+    volumes:
+      - ./scripts/start.sh:/custom_scripts/after_package/start_app.sh # start app
+      - ./ssh:/root/.ssh # pull code ssh key
+      - ./app:/app/code # app code
+    ports:
+      - 5006:9000 # hook server
+      - 5007:3000 # your app
+    depends_on:
+      - mongo
+    networks:
+      - koa_net
+  mongo:
+    image: mongo:6.0.3
+    container_name: koa-mongo
+    restart: always
+    volumes:
+      - ./db/mongo/db:/data/db
+      - ./db/mongo/log:/var/log/mongodb
+    environment:
+      MONGO_INITDB_DATABASE: koa-app
+      MONGO_INITDB_ROOT_USERNAME: mongo_root
+      MONGO_INITDB_ROOT_PASSWORD: IlCGpRg6NoXKyBPfdg
+    networks:
+      - koa_net
+networks:
+  koa_net:
+    driver: bridge

@@ -26,12 +26,11 @@ module.exports = (checkParamsObj) => {
       const schemaKeys = Object.getOwnPropertyNames(checkParamsObj)
 
       for (const keyName of schemaKeys) {
-        const { value, error } = Joi.object(checkParamsObj[keyName]).validate(
-          reqParam[keyName],
-          {
-            allowUnknown: true
-          }
-        )
+        const { value, error } = Joi.object(
+          checkParamsObj[keyName]
+        ).validate(reqParam[keyName], {
+          allowUnknown: true
+        })
 
         if (error) {
           logger.warn({

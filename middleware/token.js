@@ -25,7 +25,8 @@ module.exports = (options) => {
       app_prop_name = 'x-app-id',
       token_expires_prop_name = 'x-token-expires'
 
-    const _token = ctx.headers[token_prop_name] || ctx.query[token_prop_name],
+    const _token =
+        ctx.headers[token_prop_name] || ctx.query[token_prop_name],
       _app = ctx.headers[app_prop_name] || ctx.query[app_prop_name]
 
     if (!_token || !_app) {

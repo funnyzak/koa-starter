@@ -22,6 +22,9 @@ const listenPort = process.env.PORT || config.app.port
 const server = app.listen(listenPort, '0.0.0.0', () => {
   logger.info({
     type: LogType.INIT,
-    msg: `Server listening on port: ${server.address().port}, env: ${process.env.NODE_ENV}.`
+    msg: `Server listening on port: ${server.address().port}, env: ${
+      process.env.NODE_ENV
+    }.
+    You can visit http://localhost:${server.address().port}`
   })
 })

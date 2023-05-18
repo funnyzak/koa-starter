@@ -33,7 +33,11 @@ const addToRouter = (router, routes) => {
         route.controller
       )
     } else {
-      router[method](route.path, CheckParam(route.checkParam), route.controller)
+      router[method](
+        route.path,
+        CheckParam(route.checkParam),
+        route.controller
+      )
     }
   })
 }

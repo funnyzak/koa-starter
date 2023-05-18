@@ -28,7 +28,9 @@ function saveRequestFiles(ctx, opts = {}) {
 
   return new Promise(async (resolve, reject) => {
     const _finfo_cursor = await FileObject.colnSync(async (coln) => {
-      return await coln.utils.find({ hash: { $in: requestFiles.map((v) => v.hash) } })
+      return await coln.utils.find({
+        hash: { $in: requestFiles.map((v) => v.hash) }
+      })
     })
     let finfo_list = []
 
@@ -40,7 +42,12 @@ function saveRequestFiles(ctx, opts = {}) {
       requestFiles.map(async (_file) => {
         try {
           let _finfo = finfo_list.find((v) => v.hash === _file.hash)
-          let shouldSaveDB = !_finfo || (_finfo && !(await fs.existsSync(path.join(config.app.upload.saveDir, _finfo.savePath))))
+          let shouldSaveDB =
+            !_finfo ||
+            (_finfo &&
+              !(await fs.existsSync(
+                path.join(config.app.upload.saveDir, _finfo.savePath)
+              )))
 
           let new_finfo = shouldSaveDB
             ? _.merge(_finfo, {
@@ -56,7 +63,10 @@ function saveRequestFiles(ctx, opts = {}) {
 
           if (shouldSaveDB) {
             // 删除临时文件
-            if ((await fs.existsSync(_file.tmpPath)) && !(await fs.existsSync(_file.path))) {
+            if (
+              (await fs.existsSync(_file.tmpPath)) &&
+              !(await fs.existsSync(_file.path))
+            ) {
               await utils.createDirsSync(path.dirname(_file.path))
               await fs.renameSync(_file.tmpPath, _file.path)
             }
@@ -64,9 +74,14 @@ function saveRequestFiles(ctx, opts = {}) {
             await fs.unlinkSync(_file.tmpPath)
           }
 
-          const file_path = path.join(config.app.upload.saveDir, new_finfo.savePath)
+          const file_path = path.join(
+            config.app.upload.saveDir,
+            new_finfo.savePath
+          )
 
-          const _saveCloud = (!_finfo || !_finfo.cloud || _finfo.cloud === null) && saveCloud
+          const _saveCloud =
+            (!_finfo || !_finfo.cloud || _finfo.cloud === null) &&
+            saveCloud
 
           if (_saveCloud) {
             const _key = `${config.app.upload.cloudPathPrefix}/${new_finfo.savePath}`
@@ -81,7 +96,10 @@ function saveRequestFiles(ctx, opts = {}) {
             delete new_finfo.updatedAt
           }
 
-          new_finfo = shouldSaveDB || _saveCloud ? await FileObject.upsert(new_finfo) : new_finfo
+          new_finfo =
+            shouldSaveDB || _saveCloud
+              ? await FileObject.upsert(new_finfo)
+              : new_finfo
           new_finfo.url = `${config.app.upload.virtualPath}/${new_finfo.savePath}`
           return new_finfo
         } catch (e) {
@@ -103,16 +121,25 @@ function saveRequestFiles(ctx, opts = {}) {
 function signatureFileObjects(fileObjects) {
   return Promise.all(
     fileObjects.map(async (v) => {
-      if (!v.objectKey || v.objectKey === null || v.cloud !== CLOUD_STORAGE_VENOR.ALIYUN) return v
+      if (
+        !v.objectKey ||
+        v.objectKey === null ||
+        v.cloud !== CLOUD_STORAGE_VENOR.ALIYUN
+      )
+        return v
 
       const oss = aliyun.ossPick(v.bucket)
       if (!oss) return v
 
-      const signatureUrl = await oss.signatureUrl(v.objectKey, config.app.upload.signatureExpires, {
-        response: {
-          'content-type': v.mime
+      const signatureUrl = await oss.signatureUrl(
+        v.objectKey,
+        config.app.upload.signatureExpires,
+        {
+          response: {
+            'content-type': v.mime
+          }
         }
-      })
+      )
       return {
         ...v,
         signatureUrl
@@ -123,19 +150,42 @@ function signatureFileObjects(fileObjects) {
 
 function fileObjectsResponseFormat(fileObjects) {
   return (fileObjects || []).map((v) => {
-    if (v.bucket && v.cloud === CLOUD_STORAGE_VENOR.ALIYUN && aliyun.ossPick(v.bucket)) {
-      v.cloudUrl = `${aliyun.ossPick(v.bucket).option.domain}/${v.objectKey}`
+    if (
+      v.bucket &&
+      v.cloud === CLOUD_STORAGE_VENOR.ALIYUN &&
+      aliyun.ossPick(v.bucket)
+    ) {
+      v.cloudUrl = `${aliyun.ossPick(v.bucket).option.domain}/${
+        v.objectKey
+      }`
     }
 
     let retV = {}
-    ;['hash', 'cover', 'mime', 'name', 'size', 'suffix', 'signatureUrl', 'url', 'cloudUrl'].forEach((name) => (retV[name] = v[name]))
+    ;[
+      'hash',
+      'cover',
+      'mime',
+      'name',
+      'size',
+      'suffix',
+      'signatureUrl',
+      'url',
+      'cloudUrl'
+    ].forEach((name) => (retV[name] = v[name]))
     return retV
   })
 }
 
 const checkRequestFiles = (ctx) => {
-  if (!ctx.requestFiles || (ctx.requestFiles.fail.length > 0 && ctx.requestFiles.success.length === 0)) {
-    throw new SysError(ctx.requestFiles.fail[0].error.message, ErrorCode.INVALID_PARAM)
+  if (
+    !ctx.requestFiles ||
+    (ctx.requestFiles.fail.length > 0 &&
+      ctx.requestFiles.success.length === 0)
+  ) {
+    throw new SysError(
+      ctx.requestFiles.fail[0].error.message,
+      ErrorCode.INVALID_PARAM
+    )
   }
 }
 
@@ -153,7 +203,9 @@ module.exports = {
       cloud: ctx.query.cloud
     })
 
-    fileObjects = ctx.query.signature ? await signatureFileObjects(fileObjects) : fileObjects
+    fileObjects = ctx.query.signature
+      ? await signatureFileObjects(fileObjects)
+      : fileObjects
 
     ctx.body = fileObjectsResponseFormat(fileObjects)
   },
