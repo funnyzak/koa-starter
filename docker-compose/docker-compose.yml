@@ -17,7 +17,7 @@ services:
       # commands
       - STARTUP_COMMANDS=echo startup time:$$(date)
       - BEFORE_PULL_COMMANDS=echo before pull time:$$(date)
-      - AFTER_PULL_COMMANDS=echo after pull time:$$(date)
+      - AFTER_PULL_COMMANDS=yarn && bash /custom_scripts/after_package/start_app.sh
       # pushoo 
       - SERVER_NAME=KoaStarter
       - PUSHOO_PUSH_PLATFORMS=dingtalk,bark
