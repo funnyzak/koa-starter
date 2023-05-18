@@ -16,14 +16,9 @@
 [sg-image]: https://img.shields.io/badge/view%20on-Sourcegraph-brightgreen.svg?style=flat-square
 [sg-url]: https://sourcegraph.com/github.com/funnyzak/koa-starter
 [build-status]: https://github.com/funnyzak/koa-starter/actions
-[commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/koa-starter?style=flat-square
 [last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/koa-starter?style=flat-square?style=flat-square&label=last%20commit
-[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/koa-starter/Node.js%20CI
-[ci-url]: https://github.com/funnyzak/koa-starter/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/koa-starter.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/koa-starter
-[download-image]: https://img.shields.io/npm/dm/koa-starter.svg?style=flat-square
-[download-url]: https://npmjs.org/package/koa-starter
 [repo-size-image]: https://img.shields.io/github/repo-size/funnyzak/koa-starter?style=flat-square&logo=github&logoColor=white&label=size
 
 ## 目录
@@ -81,13 +76,13 @@
 ```bash
 npm ci
 
-## 开发启动
+# 开发启动
 npm run watch
 
-## 生产启动
+# 生产启动
 npm start
 
-## 测试覆盖
+# 测试覆盖
 npm run cov
 ```
 

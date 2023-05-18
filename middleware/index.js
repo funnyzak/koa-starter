@@ -56,10 +56,20 @@ module.exports = (app) => {
         Object.assign(
           {
             onError: (err) => {
-              if (err.status === StatusCode.REQUEST_ENTITY_TOO_LARGE) {
-                throw new SysError(ErrorMsg.REQUEST_ENTITY_TOO_LARGE, ErrorCode.REQUEST_ENTITY_TOO_LARGE, err.status)
+              if (
+                err.status === StatusCode.REQUEST_ENTITY_TOO_LARGE
+              ) {
+                throw new SysError(
+                  ErrorMsg.REQUEST_ENTITY_TOO_LARGE,
+                  ErrorCode.REQUEST_ENTITY_TOO_LARGE,
+                  err.status
+                )
               } else {
-                throw new SysError(ErrorMsg.UNKNOWN_ERROR, ErrorCode.UNKNOWN_ERROR, StatusCode.BAD_REQUEST)
+                throw new SysError(
+                  ErrorMsg.UNKNOWN_ERROR,
+                  ErrorCode.UNKNOWN_ERROR,
+                  StatusCode.BAD_REQUEST
+                )
               }
             }
           },
@@ -80,7 +90,11 @@ module.exports = (app) => {
     // json pretter
     .use(json())
     // ejs engine
-    .use(views(path.join(__dirname, '../views/ejs'), { extension: 'ejs' }))
+    .use(
+      views(path.join(__dirname, '../views/ejs'), {
+        extension: 'ejs'
+      })
+    )
 
   routers.forEach((router) => {
     // use router
@@ -92,11 +106,19 @@ module.exports = (app) => {
           throw: true,
           // 不支持此 HTTP 方法
           notImplemented: () => {
-            return new SysError(ErrorMsg.ROUTER_NOT_FOUND, ErrorCode.ROUTER_NOT_FOUND, StatusCode.NOT_FOUND)
+            return new SysError(
+              ErrorMsg.ROUTER_NOT_FOUND,
+              ErrorCode.ROUTER_NOT_FOUND,
+              StatusCode.NOT_FOUND
+            )
           },
           // 路由存在，无对应方法
           methodNotAllowed: () => {
-            return new SysError(ErrorMsg.METHOD_NOT_ALLOWED, ErrorCode.ROUTER_NOT_FOUND, StatusCode.METHOD_NOT_ALLOWED)
+            return new SysError(
+              ErrorMsg.METHOD_NOT_ALLOWED,
+              ErrorCode.ROUTER_NOT_FOUND,
+              StatusCode.METHOD_NOT_ALLOWED
+            )
           }
         })
       )

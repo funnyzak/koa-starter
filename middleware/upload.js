@@ -21,8 +21,15 @@ module.exports = (options) => {
     let savePrefix =
       (options.savePrefix ? `${options.savePrefix}` : '') +
       (ctx.token && ctx.token.app ? `/${ctx.token.app}` : '') +
-      (ctx.query.prefix && ctx.query.prefix.trim() !== '' ? `/${ctx.query.prefix.trim()}` : '')
-    savePrefix = savePrefix === '' ? undefined : savePrefix.startsWith('/') ? savePrefix.substring(1) : `${savePrefix}`
+      (ctx.query.prefix && ctx.query.prefix.trim() !== ''
+        ? `/${ctx.query.prefix.trim()}`
+        : '')
+    savePrefix =
+      savePrefix === ''
+        ? undefined
+        : savePrefix.startsWith('/')
+        ? savePrefix.substring(1)
+        : `${savePrefix}`
 
     ctx.requestFiles = await upload.process(ctx.req, {
       ...options,

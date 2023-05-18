@@ -16,7 +16,10 @@ const env = process.env.NODE_ENV
 if (env) {
   try {
     const customConfigPath = path.join(__dirname, `config-${env}.js`)
-    const defaultConfigPath = path.join(__dirname, `config-default.js`)
+    const defaultConfigPath = path.join(
+      __dirname,
+      `config-default.js`
+    )
 
     if (!fs.existsSync(customConfigPath)) {
       fs.copyFileSync(defaultConfigPath, customConfigPath)
