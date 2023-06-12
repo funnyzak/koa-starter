@@ -17,7 +17,8 @@ module.exports = (checkParamsObj) => {
       router: ctx.params,
       query: ctx.query,
       body: ctx.request.body,
-      headers: ctx.headers
+      headers: ctx.headers,
+      params: ctx.params
     }
 
     ctx.reqParams = reqParam
