@@ -57,7 +57,7 @@
     "lodash": "4.17.21",
     "mocha": "^10.2.0",
     "moment": "^2.29.4",
-    "mongodb": "5.9.1",
+    "mongodb": "6.3.0",
     "mysql2": "3.3.1",
     "redis": "4.6.10",
     "sequelize": "6.35.0",
