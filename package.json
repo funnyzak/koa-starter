@@ -71,7 +71,7 @@
     "eslint-config-prettier": "8.8.0",
     "husky": "8.0.3",
     "lint-staged": "15.1.0",
-    "nodemon": "3.0.1",
+    "nodemon": "3.1.0",
     "npm-check-updates": "^16.10.12",
     "nyc": "15.1.0",
     "power-assert": "1.6.1",
